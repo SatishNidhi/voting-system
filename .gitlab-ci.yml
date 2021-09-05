@@ -1,0 +1,21 @@
+image: php:latest
+
+before_script:
+    - apt-get update -qq
+    - apt-get install -qq git
+    - "which ssh-agent || ( apt-get install -qq openssh-client )"
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - touch ~/.ssh/known_hosts
+    - ssh-keyscan -H 44.227.154.72 >> ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+deploy_stage:
+    stage: deploy
+    environment: Staging
+    only:
+        - develop
+    script:
+        - ls
+        - scp -o StrictHostKeyChecking=no -r * 	mgmotors@44.227.154.72:/home/mgmotors/public_html

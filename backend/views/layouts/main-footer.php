@@ -10,7 +10,7 @@
 ?>
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Powered by <a href="https://Voting tech.com">Ybc Cleaning Services</a></b>
+        <b>Powered by <a href="https://Voting tech.com">YBC Services</a></b>
     </div>
     <strong>
         Copyright &copy; <?= date('Y') ?> <a href="http://www.mgmotor.com/">Voting System</a>.

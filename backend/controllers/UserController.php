@@ -97,6 +97,7 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->generateAuthKey();
+            $model->user_type = 'admin';
             $model->setPassword($model->password);
             if ($model->save()) {
                 Yii::$app->authManager->assign(Yii::$app->authManager->getRole($model->role), $model->id);

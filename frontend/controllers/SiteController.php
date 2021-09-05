@@ -27,6 +27,7 @@ use yii\web\NotFoundHttpException;
 use common\models\FrontendLoginForm;
 use common\models\AppLoginForm;
 use common\models\AppUser;
+use common\models\KeyLoginForm;
 
 /**
  * Site controller.
@@ -68,7 +69,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['post','get'],
                 ],
             ],
         ];
@@ -93,11 +94,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        echo Yii::$app->user->id;
-
+        $user = User::findOne(Yii::$app->user->id);
+     
    
 
         return $this->render('index', [
+            'user'=>$user,
         
         ]);
     }
@@ -110,24 +112,19 @@ class SiteController extends Controller
      public function actionLogin()
     {
 
-       
+        if (yii::$app->user->id) {
+
+    return $this->redirect(['/site/index']);
+
+    }
       $this->layout='loginlayout';
-        $model = new AppLoginForm();
-          
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {      
-            if($model->login(false)){
-              
-                Yii::$app->session->setFlash('success','Successfully Login');
-                return $this->goHome();
-            }else
-                {
-                    Yii::$app->session->setFlash('error', 'Sorry, Email and Password doesn\'t match');
-                    return $this->render('login', [
-                        'model' => $model,
-                ]);
-                }
-             
-        } else {
+      $model = new LoginForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+         else {
+
             return $this->render('login', [
                     'model' => $model,
             ]);
@@ -157,8 +154,13 @@ class SiteController extends Controller
            $this->layout='loginlayout';
 
         $model = new SignupForm();
+        if (yii::$app->user->id) {
 
-        if ($model->load(Yii::$app->request->post())) {
+    return $this->redirect(['/site/index']);
+
+    }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             if ($user = $model->signup()) {
 
@@ -181,8 +183,8 @@ class SiteController extends Controller
     public function actionRequestPasswordReset()
     {
         // Change layout and body class of register page
-        $this->layout = 'blank';
-        Yii::$app->params['bodyClass'] = 'register-page';
+             $this->layout='loginlayout';
+
         $model = new PasswordResetRequestForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -214,8 +216,8 @@ class SiteController extends Controller
     public function actionResetPassword($token)
     {
         // Change layout and body class of reset password page
-        $this->layout = 'blank';
-        Yii::$app->params['bodyClass'] = 'register-page';
+                    $this->layout='loginlayout';
+
 
         try {
             $model = new ResetPasswordForm($token);
@@ -233,6 +235,63 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+
+        //google login
+    public function actionGoogle()
+    {
+        $user = User::find()->where(['email'=>$_REQUEST['email']])->one();
+        if($user){
+            $user->google_id = $_REQUEST['id'];
+            $user->save(false);
+        }else{
+            $user = new User();
+            $user->email = $_REQUEST['email'];
+            $user->username = $_REQUEST['email'];
+            $user->full_name = $_REQUEST['name'];
+            $user->password_hash = 'hdfgfdgdf';
+            $user->auth_key = 'hdfgfdgdf';
+            $user->status = 10;
+            $user->google_id = $_REQUEST['id'];
+            $user->access_level = 0;
+            $user->user_type = 'subscriber';
+            if($user->save(false)){
+                //Yii::$app->authManager->assign(Yii::$app->authManager->getRole($user->role), $user->id);
+            }
+        }
+        $model = new KeyLoginForm();
+        $model->google_id = $user->google_id;
+        $model->type = $_REQUEST['type'];
+        $model->loginkey();
+    }
+    //facebook login
+    public function actionFacebook()
+    {
+        $user = User::find()->where(['email'=>$_REQUEST['email']])->one();
+        if($user){
+            $user->facebook_id = $_REQUEST['id'];
+            $user->save(false);
+        }else{
+            $user = new User();
+            $user->email = $_REQUEST['email'];
+            $user->username = $_REQUEST['email'];
+            $user->full_name = $_REQUEST['name'];
+            $user->password_hash = 'hdfgfdgdf';
+            $user->auth_key = 'hdfgfdgdf';
+            $user->status = 10;
+            $user->facebook_id = $_REQUEST['id'];
+            $user->access_level = 0;
+            $user->user_type = 'subscriber';
+            if($user->save(false)){
+                //Yii::$app->authManager->assign(Yii::$app->authManager->getRole($user->role), $user->id);
+            }
+        }
+        $model = new KeyLoginForm();
+        $model->facebook_id = $user->facebook_id;
+        $model->type = 'facebook';
+        $model->loginkey();
+    }
+
 
     /**
      * Render term and condition

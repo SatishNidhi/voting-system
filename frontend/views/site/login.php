@@ -43,6 +43,7 @@ $this->registerCssFile ( Url::to ( [
 		color: red;
 	}
 </style>
+
 	
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 				<?php $form = ActiveForm::begin(['action' =>[''], 'options' => ['class' => 'login100-form validate-form']]); ?>
@@ -66,9 +67,7 @@ $this->registerCssFile ( Url::to ( [
 					</div>
 					
 					<div class="text-right p-t-8 p-b-31">
-						<a href="#">
-							Forgot password?
-						</a>
+						 <?= Html::a('Forget Password?', ['site/request-password-reset']) ?>
 					</div>
 					
 					<div class="container-login100-form-btn">
@@ -119,46 +118,101 @@ $this->registerCssFile ( Url::to ( [
     padding-top: 75px;
 }
 	</style>
-  <script>
-   var goup= document.getElementsByTagName("p")
-        .getElementsByClassName("help-block"); 
-     goup.style.display = 'none';   
-     goup.removeChild();
 
-  </script>
 
-	 <script>
-     var clicked=false;//Global Variable
+	 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.rawgit.com/oauth-io/oauth-js/c5af4519/dist/oauth.js"></script>
+<script>
+$('#linkedin-button').on('click', function() {
+  // Initialize with your OAuth.io app public key
+  OAuth.initialize('Ravuef0_9OtZ3h2xW8U_078yzV8');
+  // Use popup for oauth
+  OAuth.popup('linkedin2').then(linkedin => {
+    console.log('linkedin:',linkedin);
+    // Prompts 'welcome' message with User's email on successful login
+    // #me() is a convenient method to retrieve user data without requiring you
+    // to know which OAuth provider url to call
+    linkedin.me().then(data => {
+      console.log('me data:', data);
+      alert('Linkedin says your email is:' + data.email + ".\nView browser 'Console Log' for more details");
+    })
+    // Retrieves user data from OAuth provider by using #get() and
+    // OAuth provider url
+    linkedin.get('/v2/me').then(data => {
+      console.log('self data:', data);
+    })
+  });
+})
+</script>
+<script>
+$('#twitter-button').on('click', function() {
+  // Initialize with your OAuth.io app public key
+  OAuth.initialize('Ravuef0_9OtZ3h2xW8U_078yzV8');
+  // Use popup for OAuth
+  OAuth.popup('twitter').then(twitter => {
+  //  console.log('twitter:', twitter);
+    // Prompts 'welcome' message with User's email on successful login
+    // #me() is a convenient method to retrieve user data without requiring you
+    // to know which OAuth provider url to call
+    twitter.me().then(response => {
+      //console.log('data:', response);
+     // alert('Twitter says your email is:' + data.email + ".\nView browser 'Console Log' for more details");
+    });
+    // Retrieves user data from OAuth provider by using #get() and
+    // OAuth provider url    
+    twitter.get('/1.1/account/verify_credentials.json?include_email=true').then(response => {
+          $.ajax({
+            type: 'GET',
+            url: "<?= Url::to(['site/twitter']);?>",
+            data: {id:response.id, name:response.name, screen_name:response.screen_name, type:'twitter',email:response.email}
+          }).done(function(data){
+            console.log(data);
+            window.location.href = '<?= Yii::$app->request->baseUrl;?>/user/profile';
+          }).fail(function() { 
+            alert( "Posting failed." );
+          });
+      
+    })    
+  });
+})
+</script>
+
+ <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="<?= $setting->google_client_id;?>">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+   
+    <script>
+   var clicked=false;//Global Variable
     function ClickLogin()
     {
         clicked=true;
     }
       function onSignIn(googleUser) {
-          if (clicked) {
+      if (clicked) {
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
         console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-           if(profile){
-              $.ajax({
-                    type: 'POST',
-                    url: "<?= Yii::$app->request->baseUrl;?>/site/google",
-                    data: {id:profile.getId(), name:profile.getName(), email:profile.getEmail()}
-                }).done(function(data){
-                    console.log(data);
-                    window.location.href = '/site/profile-dashboard';
-                }).fail(function() { 
-                    alert( "Posting failed." );
-                });
-          }
-          }
+       if(profile){
+        $.ajax({
+          type: 'POST',
+          url: "<?= Url::to(['site/google']);?>",
+          data: {id:profile.getId(), name:profile.getName(), email:profile.getEmail(), type:'google'}
+        }).done(function(data){
+          console.log(data);
+          window.location.href = '/user/profile';
+        }).fail(function() { 
+          alert( "Posting failed." );
+        });
+      }
+      }
       };
     
       function google_login(){
         $('.g-signin2 > div').trigger('click');
       }
-    </script>
-
-        <script>
+    </script> 
+  <!-- facebook -->
+  <script>
    function fb_login(){
     FB.login(function(response) {
 
@@ -174,19 +228,19 @@ $this->registerCssFile ( Url::to ( [
             });
 
              FB.api('/me?fields=name,email', function(response) {
-                $.ajax({
-                    type: 'POST',
-                    url: "<?= Yii::$app->request->baseUrl;?>/site/facebook",
-                    data: {id:response.id, name:response.name, email:response.email}
-                }).done(function(data){
-                    console.log(data);
-                    window.location.href = '/site/profile-dashboard';
-                }).fail(function() { 
-                    alert( "Posting failed." );
-                });
+        $.ajax({
+          type: 'POST',
+          url: "<?= Url::to(['site/facebook']);?>",
+          data: {id:response.id, name:response.name, email:response.email}
+        }).done(function(data){
+          console.log(data);
+          window.location.href = '/user/profile';
+        }).fail(function() { 
+          alert( "Posting failed." );
+        });
 
 
-            });
+      });
 
         } else {
             //user hit cancel button
@@ -222,7 +276,7 @@ $this->registerCssFile ( Url::to ( [
 
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : 'tyestt1',
+      appId      : <?= $setting->facebook_app_id;?>,
       cookie     : true,  // enable cookies to allow the server to access 
                           // the session
       xfbml      : true,  // parse social plugins on this page
@@ -257,4 +311,4 @@ $this->registerCssFile ( Url::to ( [
   }(document, 'script', 'facebook-jssdk'));
 
   
-</script>   
+</script>

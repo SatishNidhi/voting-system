@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * @file      LoginForm.php.
+ * @date      6/4/2015
+ * @time      4:42 AM
+ * @author    Agiel K. Saputra <13nightevil@gmail.com>
+ * @copyright Copyright (c) 2015 WritesDown
+ * @license   http://www.writesdown.com/license/
+ */
 
 namespace common\models;
 
@@ -9,16 +16,23 @@ use yii\base\Model;
 /**
  * Login form
  *
+ * @package common\models
  * @author  Agiel K. Saputra <13nightevil@gmail.com>
- * @since   0.1.0
+ * @since   1.0
  */
 class AppLoginForm extends Model
 {
     public $username;
     public $password;
     public $rememberMe = true;
+    
+
 
     private $_user = false;
+    public $referrer;
+    public $session;
+    
+
 
     /**
      * @inheritdoc
@@ -30,26 +44,21 @@ class AppLoginForm extends Model
             [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
+            [['referrer'],'safe'],
+            [['session'],'safe'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
     }
 
-    public function attributeLabels()
-    {
-    	return [
-    
-    			'username'             => 'Mobile or Email',
-    
-    	];
-    }
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
      *
      * @param string $attribute the attribute currently being validated
+     * @param array  $params    the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute)
+    public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
@@ -68,9 +77,9 @@ class AppLoginForm extends Model
     {
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     /**
@@ -81,8 +90,7 @@ class AppLoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-          //  $this->_user = AppUser::findByUsername($this->username);
-        	$this->_user = AppUser::findByUsername($this->username);
+            $this->_user = FrontendUser::findByUsername($this->username);
         }
 
         return $this->_user;

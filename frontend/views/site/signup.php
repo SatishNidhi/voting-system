@@ -46,34 +46,24 @@ $this->registerCssFile ( Url::to ( [
 						Sign Up
 					</span>
 
-					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-						<span class="label-input100">Username</span>
-						  <?= $form->field($model, 'username')->textInput(['maxlength' => true, 'class'=>'input100', 'placeholder'=>'Type your username'])->label(false) ?>
-						  						<span class="focus-input100" data-symbol="&#xf206;"></span>
-
-
-					</div>
 
 				<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
 						<span class="label-input100">Full Name</span>
-						  <?= $form->field($model, 'full_name')->textInput(['maxlength' => true, 'class'=>'input100', 'placeholder'=>'Type your FullName'])->label(false) ?>
+						  <?= $form->field($model, 'full_name')->textInput(['maxlength' => true, 'class'=>'input100', 'placeholder'=>'Type your fullname'])->label(false) ?>
 						 <span class="focus-input100" data-symbol="&#xf206;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-						<span class="label-input100">Email</span>
-						  <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'class'=>'input100', 'placeholder'=>'Type your Email'])->label(false) ?>
-						 <span class="focus-input100" data-symbol="&#128231;"></span>
+						<span class="label-input100">Email Address</span>
+						  <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'class'=>'input100', 'placeholder'=>'Type your email address'])->label(false) ?>
+						 <span class="focus-input100" data-symbol="&#x2709;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-						<span class="label-input100">Mobil Number</span>
-						  <?= $form->field($model, 'mobile')->textInput(['maxlength' => true, 'class'=>'input100', 'placeholder'=>'Type your Mobile'])->label(false) ?>
+						<span class="label-input100">Viber Number</span>
+						  <?= $form->field($model, 'mobile')->textInput(['maxlength' => true, 'class'=>'input100', 'placeholder'=>'Type your viber number'])->label(false) ?>
 						 <span class="focus-input100" data-symbol="&#xf2bc;"></span>
 					</div>
-
-
-
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
 						<span class="label-input100">Password</span>

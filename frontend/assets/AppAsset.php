@@ -35,6 +35,8 @@ class AppAsset extends AssetBundle
                     'public/css/util.css',
 
                     'public/css/main.css',
+                    'public/css/style.css',
+
 
 
 
@@ -49,6 +51,7 @@ class AppAsset extends AssetBundle
                     "public/vendor/daterangepicker/daterangepicker.js",
                     "public/vendor/countdowntime/countdowntime.js",
                     "public/js/main.js",
+                    'public/js/pcoded.min.js'
 
 
                

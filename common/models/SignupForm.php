@@ -71,7 +71,7 @@ class SignupForm extends Model
     {
         return [
             ['username', 'filter', 'filter' => 'trim'],
-            [['username','full_name','mobile','email','password',], 'required'],
+            [['full_name','mobile','email','password',], 'required'],
              [['first_name','last_name','email','password','gender','day','month','year','password'], 'safe'],
 
             ['username', 'unique', 'targetClass' => '\common\models\AppUser', 'message' => 'This username has already been taken.'],
@@ -107,11 +107,15 @@ class SignupForm extends Model
            
       
             $user = new User();
-            $user->username = $this->username;
+            $user->username = $this->email;
             $user->email = $this->email;
+            $user->full_name = $this->full_name;
+            $user->mobile = $this->mobile;
+
             $user->setPassword($this->password);
             $user->status = 10;
             $user->generateAuthKey();
+            $user->user_type = 'subscriber';
             if ($user->save(false)) {
                 // Yii::$app->authManager->assign(Yii::$app->authManager->getRole(Option::get('default_role')), $user->id);
 

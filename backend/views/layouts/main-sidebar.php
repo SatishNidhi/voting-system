@@ -67,6 +67,44 @@ use yii\helpers\Html;
                 ],
             ],
         ];
+
+         $adminMenu[7] = [
+            'label' => Yii::t('writesdown', 'Candidate'),
+            'icon' => 'fa fa-dashboard',
+            'url' => ['/candidate/index'],
+            // 'items' => [
+            //     ['icon' => 'fa fa-arrow-circle-right', 'label' => Yii::t('writesdown', 'Home'), 'url' => ['/site/index']],
+            // ],
+        ];
+
+         $adminMenu[8] = [
+            'label' => Yii::t('writesdown', 'Delicate'),
+            'icon' => 'fa fa-dashboard',
+            'url' => ['/delicate/index'],
+            // 'items' => [
+            //     ['icon' => 'fa fa-arrow-circle-right', 'label' => Yii::t('writesdown', 'Home'), 'url' => ['/site/index']],
+            // ],
+        ];
+
+         $adminMenu[9] = [
+            'label' => Yii::t('writesdown', 'Position'),
+            'icon' => 'fa fa-dashboard',
+            'url' => ['/position/index'],
+            // 'items' => [
+            //     ['icon' => 'fa fa-arrow-circle-right', 'label' => Yii::t('writesdown', 'Home'), 'url' => ['/site/index']],
+            // ],
+        ];
+       $adminMenu[10] = [
+            'label' => Yii::t('writesdown', 'Vote'),
+            'icon' => 'fa fa-dashboard',
+            'url' => ['/vote/index'],
+            // 'items' => [
+            //     ['icon' => 'fa fa-arrow-circle-right', 'label' => Yii::t('writesdown', 'Home'), 'url' => ['/site/index']],
+            // ],
+        ];
+      
+      
+      
       
         
         // $adminMenu[20] = [

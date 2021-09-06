@@ -86,5 +86,8 @@ $this->beginPage();
     position: relative;
     border-bottom: unset;
 }
+.fixed-button .btn {
+    display: none;
+}
 
 </style>

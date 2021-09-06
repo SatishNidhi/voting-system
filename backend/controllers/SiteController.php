@@ -109,7 +109,8 @@ class SiteController extends Controller
      *
      * @return string|\yii\web\Response
      */
-    public function actionLogin()
+ 
+     public function actionLogin()
     {
         // Set layout and bodyClass for login-page
         $this->layout = 'blank';
@@ -121,12 +122,35 @@ class SiteController extends Controller
 
         $model = new LoginForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        if ($model->load(Yii::$app->request->post())) {
+            $user = User::find()->where(['username'=>$model->username])->one();
+
+            if ($user->user_type=='admin') {
+                   if ($model->login ()) {
+                           
+            return $this->redirect ( ['index'] );
+
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'The user name or password is incorrect.');
+                        return $this->redirect ( ['login'] );
+            }
+        } else{
+                Yii::$app->getSession()->setFlash('error', 'The user name or password is incorrect.');
+
+                       return $this->redirect ( ['login'] );
+
+        }
+
+            // $modelUserDetails = new UserLoginDetails();
+            //         $modelUserDetails->activity_datetime = date("Y-m-d H:i:s");
+            //         $modelUserDetails->user_id = Yii::$app->user->id;
+            //         $modelUserDetails->activity = 'Login';
+            //         $modelUserDetails->ip_address = Yii::$app->getRequest()->getUserIP();
+            //         $modelUserDetails->save();
         }
 
         return $this->render('login', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 

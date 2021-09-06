@@ -17,6 +17,11 @@ return [
     'bootstrap' => ['log', 'common\components\FrontendBootstrap'],
     'modules' => [],
     'components' => [
+         'session' => [
+            'name' => 'VotingsystemBACKENDSESSID',
+            'savePath' => __DIR__ . '/../tmp',
+        ], 
+
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

@@ -96,6 +96,6 @@ class Delicate extends \yii\db\ActiveRecord
      */
     public function getVotes()
     {
-        return $this->hasMany(Vote::className(), ['wd_delicate_id' => 'delicate_id']);
+        return $this->hasMany(Vote::className(), ['delicate_id' => 'delicate_id']);
     }
 }

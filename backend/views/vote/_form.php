@@ -16,14 +16,14 @@ use common\models\Delicate;
 
     <?php $form = ActiveForm::begin(); ?>
 
-       <?php echo $form->field($model, 'wd_delicate_id')->widget(Select2::classname(), [
+       <?php echo $form->field($model, 'delicate_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map (Delicate::find ()->all(), 'delicate_id', 'name' ),
                     'language' => 'en',
                     'options' => ['placeholder' => '-Select Delicate-'],                    
                   ]);
                 ?>
 
-     <?php echo $form->field($model, 'wd_candidate_id')->widget(Select2::classname(), [
+     <?php echo $form->field($model, 'candidate_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map (Candidate::find ()->all(), 'candidate_id', 'name' ),
                     'language' => 'en',
                     'options' => ['placeholder' => '-Select Candidate-'],                    

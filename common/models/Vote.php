@@ -43,4 +43,9 @@ class Vote extends \yii\db\ActiveRecord
             'candidate_id' => 'Candidate ID',
         ];
     }
+
+    public function getCandidate()
+    {
+        return $this->hasOne(Candidate::className(), ['candidate_id' => 'candidate_id']);
+    }
 }

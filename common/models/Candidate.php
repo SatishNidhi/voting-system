@@ -54,7 +54,7 @@ class Candidate extends \yii\db\ActiveRecord
      */
     public function getVotes()
     {
-        return $this->hasMany(Vote::className(), ['wd_candidate_id' => 'candidate_id']);
+        return $this->hasMany(Vote::className(), ['candidate_id' => 'candidate_id']);
     }
 
     public function getPosition()

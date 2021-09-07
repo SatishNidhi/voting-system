@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'vote_id',
             [
-            'attribute' => 'wd_delicate_id',
+            'attribute' => 'delicate_id',
             'value' =>  $model->delicate->name,
             ],  
              [
-            'attribute' => 'wd_candidate_id',
+            'attribute' => 'candidate_id',
             'value' =>  $model->candidate->name,
             ],      
         ],

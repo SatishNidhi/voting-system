@@ -30,12 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'vote_id',
             
              [
-                    'attribute' => 'wd_delicate_id',
+                    'attribute' => 'delicate_id',
                     'value' =>'delicate.name',
                     'filter'=>ArrayHelper::map(Delicate::find()->orderBy(['name'=>SORT_ASC])->all(), 'delicate_id', 'name'),
             ],
              [
-                    'attribute' => 'wd_candidate_id',
+                    'attribute' => 'candidate_id',
                     'value' =>'candidate.name',
                     'filter'=>ArrayHelper::map(Candidate::find()->orderBy(['name'=>SORT_ASC])->all(), 'candidate_id', 'name'),
             ],

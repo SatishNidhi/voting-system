@@ -12,6 +12,8 @@ use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\helpers\Url;
 
+
+
 /* @var $this yii\web\View */
 /* @var $posts common\models\Post[] */
 /* @var $tags common\models\Term[] */

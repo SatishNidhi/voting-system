@@ -17,7 +17,7 @@ class VoteSearch extends Vote
     public function rules()
     {
         return [
-            [['vote_id', 'wd_delicate_id', 'wd_candidate_id'], 'integer'],
+            [['vote_id', 'delicate_id', 'candidate_id'], 'integer'],
         ];
     }
 
@@ -58,8 +58,8 @@ class VoteSearch extends Vote
         // grid filtering conditions
         $query->andFilterWhere([
             'vote_id' => $this->vote_id,
-            'wd_delicate_id' => $this->wd_delicate_id,
-            'wd_candidate_id' => $this->wd_candidate_id,
+            'delicate_id' => $this->delicate_id,
+            'candidate_id' => $this->candidate_id,
         ]);
 
         return $dataProvider;

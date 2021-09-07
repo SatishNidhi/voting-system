@@ -46,38 +46,9 @@ use yii\helpers\Url;
                                     ['Congress' => 'Congress', 'UML' => 'UML']
                             ); ?>
 
-<?php 
-    $count = 0;
-    foreach ($modelPositions as $modelPosition)
-    {
-      ?>
-
-      <div class="form-group field-delicate-name required">
-        <label class="control-label" >Vote for <?=$modelPosition->title?></label> <br>
-
-        <?php
-        foreach($modelPosition->candidate as $modelCandidate)
-            {
-        ?>
-            <input type="checkbox"  id="candidate<?=$modelCandidate->candidate_id?>" name="candidate[<?=$count?>]" value="<?=$modelCandidate->candidate_id?>">
-            <label for="candidate<?=$modelCandidate->candidate_id?>"> <?=$modelCandidate->name?></label><br>
-        <?php
-        $count = $count + 1;
-            }
-          ?>
-      <div class="help-block"></div>
-      </div>
-    <?php
-      
-      }
-    ?>
-
-
     <?= $form->field($model, 'remarks')->textarea(['rows' => 6]) ?>
 
-
-
-        <div class="form-group">
+    <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 

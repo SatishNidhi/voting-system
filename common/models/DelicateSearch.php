@@ -17,8 +17,8 @@ class DelicateSearch extends Delicate
     public function rules()
     {
         return [
-            [['delicate_id', 'ncc_id', 'political_background', 'recommender_id'], 'integer'],
-            [['name', 'email', 'phone', 'photo', 'remarks', 'created_at'], 'safe'],
+            [['delicate_id', 'ncc_id', 'recommender_id'], 'integer'],
+            [['name', 'email', 'phone', 'photo', 'political_background', 'remarks', 'created_at'], 'safe'],
         ];
     }
 
@@ -60,7 +60,6 @@ class DelicateSearch extends Delicate
         $query->andFilterWhere([
             'delicate_id' => $this->delicate_id,
             'ncc_id' => $this->ncc_id,
-            'political_background' => $this->political_background,
             'created_at' => $this->created_at,
             'recommender_id' => $this->recommender_id,
         ]);
@@ -69,6 +68,7 @@ class DelicateSearch extends Delicate
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'photo', $this->photo])
+            ->andFilterWhere(['like', 'political_background', $this->political_background])
             ->andFilterWhere(['like', 'remarks', $this->remarks]);
 
         return $dataProvider;

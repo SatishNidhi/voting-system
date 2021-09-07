@@ -1,3 +1,7 @@
 ALTER TABLE `wd_user` ADD `mobile` BIGINT(20) NULL DEFAULT NULL AFTER `user_type`;
 ALTER TABLE `wd_delicate` CHANGE `political_background` `political_background` VARCHAR(11) NULL DEFAULT NULL;
 ALTER TABLE `wd_delicate` CHANGE `political_background` `political_background` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+
+ALTER TABLE `wd_delicate` DROP FOREIGN KEY `wd_delicate_ibfk_2`; ALTER TABLE `wd_delicate` ADD CONSTRAINT `wd_delicate_ibfk_2` FOREIGN KEY (`recommender_id`) REFERENCES `wd_user`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE voting-system.wd_vote DROP FOREIGN KEY wd_vote_ibfk_1`;`
+ALTER TABLE voting-system.wd_vote DROP FOREIGN KEY wd_vote_ibfk_2`;`

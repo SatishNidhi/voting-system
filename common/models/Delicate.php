@@ -13,7 +13,7 @@ use Yii;
  * @property string $email
  * @property string $phone
  * @property string|null $photo
- * @property int $political_background
+ * @property string|null $political_background
  * @property string|null $remarks
  * @property string|null $created_at
  * @property int $recommender_id
@@ -38,14 +38,13 @@ class Delicate extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'ncc_id', 'email', 'phone', 'political_background', 'recommender_id'], 'required'],
-            [['ncc_id', 'political_background', 'recommender_id'], 'integer'],
+            [['name', 'ncc_id', 'email', 'phone', 'recommender_id'], 'required'],
+            [['ncc_id', 'recommender_id'], 'integer'],
             [['remarks'], 'string'],
             [['created_at'], 'safe'],
-                        ['email', 'email'],
-
             [['name', 'email', 'phone'], 'string', 'max' => 100],
             [['photo'], 'string', 'max' => 150],
+            [['political_background'], 'string', 'max' => 50],
             [['ncc_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ncc::className(), 'targetAttribute' => ['ncc_id' => 'ncc_id']],
             [['recommender_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['recommender_id' => 'id']],
         ];
@@ -59,14 +58,14 @@ class Delicate extends \yii\db\ActiveRecord
         return [
             'delicate_id' => 'Delicate ID',
             'name' => 'Name',
-            'ncc_id' => 'Ncc',
+            'ncc_id' => 'Ncc ID',
             'email' => 'Email',
             'phone' => 'Phone',
             'photo' => 'Photo',
             'political_background' => 'Political Background',
             'remarks' => 'Remarks',
             'created_at' => 'Created At',
-            'recommender_id' => 'Recommender',
+            'recommender_id' => 'Recommender ID',
         ];
     }
 

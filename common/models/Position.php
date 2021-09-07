@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\Candidate;
 
 /**
  * This is the model class for table "wd_position".
@@ -40,5 +41,10 @@ class Position extends \yii\db\ActiveRecord
             'position_id' => 'Position ID',
             'title' => 'Title',
         ];
+    }
+
+    public function getCandidate()
+    {
+        return $this->hasMany(Candidate::className(), ['position_id' => 'position_id']);
     }
 }

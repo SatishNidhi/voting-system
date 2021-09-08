@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">S.N</th>
       <th scope="col">Delicate Name</th>
       <th scope="col">NCC</th>
       <th scope="col">Recommender</th>
@@ -39,11 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
   </thead>
   <tbody>
     <?php
+    $sn=1;
     foreach($modelDelicates as $modelDelicate)
     {
         ?>
         <tr>
-        <th scope="row">1</th>
+        <th scope="row"><?=$sn;?></th>
         <td><?=$modelDelicate->name?></td>
         <td><?=$modelDelicate->ncc->title?></td>
         <td><?=$modelDelicate->recommender->full_name?></td>
@@ -65,6 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         </tr>
     <?php
+    $sn++;
         }
     ?>
     

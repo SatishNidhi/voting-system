@@ -1,8 +1,15 @@
 <?php
 return [
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-        
+    'language'=>'ne',   
     'modules' => [
+        'discussion' => [
+            'class' => 'common\modules\discussion\Module',
+        ],
                 'social' => [
                         // the module class
                         'class' => 'kartik\social\Module',
@@ -44,16 +51,6 @@ return [
                 // your other modules
         ],  
     'components' => [
-        'request' => [
-
-                'enableCookieValidation' => true,
-        
-                'enableCsrfValidation' => true,
-        
-                'cookieValidationKey' => 'xxxxxxx',
-        
-            ],
-            
             'EmailComponent' => [
                     'class' => 'common\components\EmailComponent',
             ],
@@ -61,30 +58,26 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        
         'urlManager' => [
-            'class'     => 'yii\web\UrlManager',
+            'class' => 'codemix\localeurls\UrlManager',
+           // 'class'     => 'yii\web\UrlManager',
             // Disable index.php
             'showScriptName' => false,
             // Disable r= routes service?id=1
             'enablePrettyUrl' => true,
             'rules' => [
-          //  'post/<post_slug>' => 'post',
+             // 'post/<post_slug>' => 'post',
             ]
         ], 
-         'reCaptcha' => [
-
-            'name' => 'reCaptcha',
-
-            'class' => 'himiklab\yii2\recaptcha\ReCaptcha',
-
-            'name' => 'reCaptcha',
-
-            'class' => 'himiklab\yii2\recaptcha\ReCaptcha',
-
-            'siteKey' => '6Ld4wnobAAAAAJ-6R4EdHO5cANhVW_Lk_pJayGPh',
-
-            'secret' => '6Ld4wnobAAAAAB6ys8TIUsD-E1HtMGJ0xJ01yyZD',
-        ],
-        
+  
     ],
+    'on beforeRequest'          => function ($event) {
+        Yii::$container->set('yii\grid\DataColumn', [
+            'filterInputOptions' => [
+                'class'       => 'form-control',
+                'placeholder' => 'Search...'
+            ]
+        ]);
+    },
 ];

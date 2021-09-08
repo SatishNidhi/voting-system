@@ -27,7 +27,7 @@ class AppAsset extends AssetBundle
                     "public/css/fontawesome-all.min.css",
                     'public/css/animate.min.css',
                     'public/css/feather.css',
-                                        'public/css/datta-icon.css',
+                    'public/css/datta-icon.css',
 
 
 

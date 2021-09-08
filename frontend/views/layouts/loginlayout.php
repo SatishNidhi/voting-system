@@ -7,11 +7,11 @@
  */
 
 use common\models\Option;
-use frontend\assets\AppAsset;
+use frontend\assets\LoginAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$assetBundle =AppAsset::register($this);
+$assetBundle =LoginAsset::register($this);
 
 $url = $_SERVER['HTTP_HOST'];
 

@@ -80,11 +80,11 @@ use yii\helpers\Html;
          $adminMenu[8] = [
             'label' => Yii::t('writesdown', 'Delicate'),
             'icon' => 'fa fa-dashboard',
-            // 'url' => ['/delicate/index'],
-            'items' => [
-                ['icon' => 'fa fa-arrow-circle-right', 'label' => 'Delicates', 'url' => ['/delicate/index']],
-                ['icon' => 'fa fa-arrow-circle-right', 'label' => 'Votes', 'url' => ['/delicate/vote']],
-            ],
+            'url' => ['/delicate/index'],
+            // 'items' => [
+            //     ['icon' => 'fa fa-arrow-circle-right', 'label' => 'Delicates', 'url' => ['/delicate/index']],
+            //     ['icon' => 'fa fa-arrow-circle-right', 'label' => 'Votes', 'url' => ['/delicate/vote']],
+            // ],
         ];
 
          $adminMenu[9] = [

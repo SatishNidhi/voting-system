@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <h3> Basic Information </h3>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -58,3 +60,29 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+<h3> Votes </h3>
+
+<table class="table table-striped table-bordered detail-view">
+    <thead>
+        <th> S.N. </th>
+        <th> Position </th>
+        <th> Candidate </th>
+    </thead>
+    <tbody>
+        <?php 
+        $sn = 1;
+        foreach($modelVotes as $modelVote)
+        {
+            ?>
+        <tr>
+            <th><?=$sn?></th>
+            <td><?=$modelVote->candidate->position->title?></td>
+            <td><?=$modelVote->candidate->name?></td>
+        </tr>
+        <?php
+        $sn++;
+        }
+        ?>
+    </tbody>
+</table>

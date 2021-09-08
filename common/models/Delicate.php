@@ -58,14 +58,14 @@ class Delicate extends \yii\db\ActiveRecord
         return [
             'delicate_id' => 'Delicate ID',
             'name' => 'Name',
-            'ncc_id' => 'Ncc ID',
+            'ncc_id' => 'Ncc',
             'email' => 'Email',
             'phone' => 'Phone',
             'photo' => 'Photo',
             'political_background' => 'Political Background',
             'remarks' => 'Remarks',
             'created_at' => 'Created At',
-            'recommender_id' => 'Recommender ID',
+            'recommender_id' => 'Recommender',
         ];
     }
 

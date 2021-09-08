@@ -40,10 +40,14 @@ class DelicateController extends Controller
     {
         $searchModel = new DelicateSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $modelDelicates = Delicate::find()->all();
+        $modelPositions = Position::find()->all();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'modelDelicates' => $modelDelicates,
+            'modelPositions' => $modelPositions,
         ]);
     }
 
@@ -65,8 +69,10 @@ class DelicateController extends Controller
      */
     public function actionView($id)
     {
+        $modelVotes = Vote::find()->where(['delicate_id'=>$id])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'modelVotes' => $modelVotes,
         ]);
     }
 

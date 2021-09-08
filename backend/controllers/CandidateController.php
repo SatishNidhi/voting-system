@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Candidate;
 use common\models\CandidateSearch;
+use common\models\DelicateSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -108,6 +109,18 @@ class CandidateController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionVoter($id) //candidate_id
+    {
+
+        $searchModel = new DelicateSearch();
+        $dataProvider = $searchModel->searchVoter(Yii::$app->request->queryParams);
+
+        return $this->render('voter', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

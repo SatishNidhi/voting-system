@@ -10598,3 +10598,12 @@ div.code-toolbar > .toolbar span:hover {
 		box-shadow: 0 0 0 0 rgba(4, 169, 245, 0)
 	}
 }
+.fixed-button.active {
+    bottom: 50px;
+    opacity: 0;
+}
+
+a {
+    color: #000;
+ 
+}

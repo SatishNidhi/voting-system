@@ -11,77 +11,82 @@ $params = array_merge(
 $baseUrlBack = (new Request())->getBaseUrl() . '/admin';
 
 return [
-    'id' => 'app-frontend',
-    'basePath' => dirname(__DIR__),
+    'id'                  => 'app-frontend',
+    'basePath'            => dirname(__DIR__),
     'controllerNamespace' => 'frontend\controllers',
-    'bootstrap' => ['log', 'common\components\FrontendBootstrap'],
-    'modules' => [],
-    'components' => [
-         'session' => [
-            'name' => 'VotingsystemBACKENDSESSID',
-            'savePath' => __DIR__ . '/../tmp',
-        ], 
-
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+    'bootstrap'           => ['log', 'common\components\FrontendBootstrap'],
+    'modules'             => [],
+    'components'          => [
+        'user'            => [
+            'identityClass'   => 'common\models\User',
+            'enableAutoLogin' => false,
+            'identityCookie' => [
+                'name' => '_frontendUser', // unique for frontend
+            ]
         ],
-        'log' => [
+        'session' => [
+            'name' => 'PHPFRONTSESSID',
+            'savePath' => __DIR__ . '/../tmp',
+        ],
+        'log'             => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
+            'targets'    => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class'  => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
-        'errorHandler' => [
+        'errorHandler'    => [
             'errorAction' => 'site/error',
         ],
-        'i18n' => [
+        'i18n'            => [
             'translations' => [
                 'writesdown' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@app/messages',
+                    'class'          => 'yii\i18n\PhpMessageSource',
+                    'basePath'       => '@app/messages',
                     'sourceLanguage' => 'en-US',
-                    'fileMap' => [],
+                    'fileMap'        => [],
                 ],
             ],
         ],
+   
+            'urlManager' => [
+                'class' => 'codemix\localeurls\UrlManager',
+                'languages' => ['en', 'ne'],
+            // 'class'     => 'yii\web\UrlManager',
+                    // Disable index.php
+                    'showScriptName' => false,
+                    // Disable r= routes service?id=1
+                    'enablePrettyUrl' => true,
+                    'rules' => [
+                            'post/<post_slug>' => 'post',
+                            'file/<slug>' => 'file',
+                            'product/category/<id>' => 'product/category',
+                            'category/<id>' => 'category/',
+                            'product/view/<id>' => 'product/view',
+                            'product/view/<slug>' => 'product/view',
+                            'brand/<id>' => 'brand/',
+                            'category/index/<id>'  => 'category/index',
+                            'category/<slug>' =>'category',
+                            'content/<title>' => 'content/index/',
+                            'blog-post/view/<id>' => 'blog-post/view',
+                            'gallery/list/<id>' => 'gallery/list',
+                    ]
+            ],
+           
         'urlManagerFront' => [
             'class' => 'yii\web\urlManager',
         ],
-         
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                'services' => 'service/index',
-                'products' => 'product/index',
-                'history' => 'history/index',
-                'download' => 'news/download',
-                'news-events' => 'news/index',
-                'news' => 'news/news',
-                'finance' => 'site/for-finance',
-                'exchange' => 'site/for-exchange',
-                'book-a-car' => 'site/book-a-car',
-                'product/booking' => 'product/booking',
-                'service/<slug:[-\w]+>' => 'service/view',
-                'product/<slug:[-\w]+>' => 'product/view',
-                'news/<slug:[-\w]+>' => 'news/view',
-                '<slug:[-\w]+>' => 'page/view',
-            ],
-        ],
-        
-        'urlManagerBack' => [
-            'class' => 'yii\web\urlManager',
+        'urlManagerBack'  => [
+            'class'     => 'yii\web\urlManager',
             'scriptUrl' => $baseUrlBack . '/index.php',
-            'baseUrl' => $baseUrlBack,
+            'baseUrl'   => $baseUrlBack,
         ],
-        'authManager' => [
+        'authManager'     => [
             'class' => 'yii\rbac\DbManager',
         ],
-        'view' => ['theme' => []],
+        'view'            => ['theme' => []],
     ],
-    'params' => $params,
+    'params'              => $params,
 ];

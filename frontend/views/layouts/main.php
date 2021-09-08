@@ -64,7 +64,28 @@ $this->beginPage();
 
 
     <div id="content">
+      <?= $this->render('sidebar') ?>
+            <?= $this->render('header') ?>
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <!-- [ breadcrumb ] start -->
+
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
         <?= $content ?>
+
+         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
     </div>
 
 

@@ -9,7 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-
+use common\models\Position;
+use common\models\Vote;
 /**
  * DelicateController implements the CRUD actions for Delicate model.
  */
@@ -58,16 +59,38 @@ class DelicateController extends Controller
         ]);
     }
 
+
+
+        public function actionVote()
+    {
+        $modelDelicates = Delicate::find()->all();
+        $modelPositions = Position::find()->all();
+
+        return $this->render('vote', [
+            'modelDelicates' => $modelDelicates,
+            'modelPositions' => $modelPositions,
+        ]);
+    }
+
+    
+
     /**
      * Creates a new Delicate model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+      public function actionCreate()
     {
         $model = new Delicate();
+        $modelVote = new Vote();
+
+        // $modelVode = new Vote();
+        $modelPositions = Position::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
+            
+            // print_r($_POST['candidate']);
+            // die;
              $img = UploadedFile::getInstance($model, 'photo');
 
             if($img != null) {
@@ -79,6 +102,16 @@ class DelicateController extends Controller
             $model->recommender_id = Yii::$app->user->id;
           
              if($model->save(false)) {
+                 if($_POST['candidate']){
+                    foreach($_POST['candidate'] as $candidate){
+                        //put transaction commit
+                        $modelVote = new Vote();
+                        $modelVote->delicate_id = $model->delicate_id;
+                        $modelVote->candidate_id = $candidate;
+                        $modelVote->save(false);
+
+                    }
+                 }
                 Yii::$app->session->setFlash('success', "The data was created successfully.");
             return $this->redirect(['index']);
             }
@@ -86,8 +119,11 @@ class DelicateController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelPositions' => $modelPositions
+            //'modelVote' = $modelVote
         ]);
     }
+
 
     /**
      * Updates an existing Delicate model.

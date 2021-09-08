@@ -61,6 +61,16 @@ class DelicateController extends Controller
             'modelPositions' => $modelPositions,
         ]);
     }
+    public function actionSummary()
+    {
+        // $modelDelicates = Delicate::find()->all();
+        // $modelPositions = Position::find()->all();
+
+        return $this->render('vote', [
+            // 'modelDelicates' => $modelDelicates,
+            // 'modelPositions' => $modelPositions,
+        ]);
+    }
     /**
      * Displays a single Delicate model.
      * @param integer $id

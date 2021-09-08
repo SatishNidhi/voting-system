@@ -38,12 +38,12 @@ use frontend\widgets\RenderWidget;
                     </li>
                 
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather fa fa-user"></i></span><span class="pcoded-mtext">Delicate</span></a>
-                        <ul class="pcoded-submenu">
-                            <li class=""><a href="<?=Url::base(true).'/delicate'?>" class="">Delicates</a></li>
-                            <li class=""><a href="<?=Url::base(true).'/delicate/vote'?>" class="">Votes</a></li>
+                        <a  href="<?=Url::base(true).'/delicate'?>" class="nav-link "><span class="pcoded-micon"><i class="feather fa fa-user"></i></span><span class="pcoded-mtext">Delicate</span></a>
+                        <!-- <ul class="pcoded-submenu"> -->
+                            <!-- <li class=""><a href="<?=Url::base(true).'/delicate'?>" class="">Delicates</a></li>
+                            <li class=""><a href="<?=Url::base(true).'/delicate/vote'?>" class="">Votes</a></li> -->
                            
-                        </ul>
+                        <!-- </ul> -->
                     </li>
             
                     <li data-username="Sample Page" class="nav-item"><a href="#" class="nav-link"><span class="pcoded-micon"><i class="fa fa-user-secret"></i></span><span class="pcoded-mtext">My Profile</span></a></li>

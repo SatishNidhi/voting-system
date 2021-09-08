@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use common\models\Position;
 use common\models\Vote;
+use yii\web\ForbiddenHttpException;
 /**
  * DelicateController implements the CRUD actions for Delicate model.
  */
@@ -39,10 +40,14 @@ class DelicateController extends Controller
     {
         $searchModel = new DelicateSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $modelDelicates = Delicate::find()->where(['recommender_id'=>Yii::$app->user->id])->all();
+        $modelPositions = Position::find()->all();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'modelDelicates' => $modelDelicates,
+            'modelPositions' => $modelPositions,
         ]);
     }
 
@@ -54,8 +59,15 @@ class DelicateController extends Controller
      */
     public function actionView($id)
     {
+        $recommender = Delicate::findOne($id)->recommender_id;
+        if ($recommender != Yii::$app->user->id) {
+            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
+
+        }
+        $modelVotes = Vote::find()->where(['delicate_id'=>$id])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'modelVotes' => $modelVotes,
         ]);
     }
 

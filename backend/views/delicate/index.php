@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Delicate', ['create'], ['class' => 'btn btn-success']) ?>&nbsp;
-        <button id="myButtonControlID" class="btn btn-success">
-        <b><span class="glyphicon glyphicon-save-file"></span>&nbsp;&nbsp;Download Excel File</b>
-      </button>
+        
+              <?= Html::a('<span class="glyphicon glyphicon-save-file"></span> Download Excel File', ['csv'], ['class' => 'btn btn-success']) ?>&nbsp;
+
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -142,26 +142,3 @@ function sortTable() {
 }
 </script>
 
-<!-- Used for excel report -->
-<?php
-$js = <<<JS
-  $("[id$=myButtonControlID]").click(function(e) {
-    chart = $('div[id$=chart]').clone();
-    chart.find('.modal').remove();
-    chart.find('.btn').remove();
-    chart.find('.unwantedEdit').remove();
-    $.each(chart.find('table'), function(index, table){
-      table.style.border = "0.1pt solid #000";
-      $.each($(table).find('th'), function(index, table){
-        table.style.border = "0.1pt solid #000";
-      });
-      $.each($(table).find('td'), function(index, table){
-        table.style.border = "0.1pt solid #000";
-      });
-    });
-      window.open('data:application/vnd.ms-excel,' + encodeURIComponent( chart.html()));
-      e.preventDefault();
-  });
-JS;
-$this->registerJs($js);
-?>

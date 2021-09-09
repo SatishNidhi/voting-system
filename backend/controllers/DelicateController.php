@@ -179,6 +179,60 @@ class DelicateController extends Controller
         ]);
     }
 
+    public function actionCsv(){
+        $fileName = "Export.xls";
+        
+        $myfile = fopen($fileName, "w");
+
+        header('Content-Encoding: UTF-8'); // vilh, change to UTF-8!
+        header("Content-type: application/x-msexcel; charset=utf-8");
+        //header('Content-type: text/plain');
+        header("Content-Disposition: attachment; filename=$fileName");
+        $modelDelicates = Delicate::find()->all();
+        $modelPositions = Position::find()->all();
+
+        $txt .=  "S.N.,Delicate Name,Ncc,Political Background,Phone,Email,Recommender,";
+
+      foreach($modelPositions as $modelPosition)
+      {
+        $txt .= $modelPosition->title.",";
+                
+
+     }
+     $txt.=",\r\n";
+     echo $txt;
+
+      $sn = 1;  
+    foreach($modelDelicates as $modelDelicate){
+            $delicate_name = $modelDelicate->name;
+            $ncc = $modelDelicate->ncc->title;
+            $political = $modelDelicate->political_background;
+            $phone = $modelDelicate->phone;
+            $email = $modelDelicate->email;
+            $recommender_name = $modelDelicate->recommender->full_name;
+            $txt = "$sn,$delicate_name, $ncc,$political,$phone,$email,$recommender_name,";
+
+           foreach($modelPositions as $modelPosition)
+               {
+                foreach($modelDelicate->votes as $modelVote){
+                    if($modelVote->candidate->position_id == $modelPosition->position_id)
+                         $txt1 .= $modelVote->candidate->name;
+                }
+
+             
+            }
+
+          //  fwrite($myfile, $txt);
+          echo $txt.$txt1."\r\n";
+            $sn++;
+        }
+
+
+       
+        fclose($myfile);
+
+    }
+
     /**
      * Deletes an existing Delicate model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

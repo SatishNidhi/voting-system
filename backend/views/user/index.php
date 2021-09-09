@@ -22,35 +22,39 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
     <div class="form-inline grid-nav" role="form">
         <div class="form-group">
-            <?= Html::dropDownList('bulk-action', null, [
-                'active' => Yii::t('writesdown', 'Active'),
-                'not-active' => Yii::t('writesdown', 'Not Active'),
-                'removed' => Yii::t('writesdown', 'Removed'),
-                'deleted' => Yii::t('writesdown', 'Delete Permanently'),
-            ], [
-                'class' => 'bulk-action form-control',
-                'prompt' => Yii::t('writesdown', 'Change Status'),
-            ]) ?>
-
-            <?= Html::button(Yii::t('writesdown', 'Apply'), ['class' => 'btn btn-flat btn-warning bulk-button']) ?>
+            <?php
+            // echo Html::dropDownList('bulk-action', null, [
+            //     'active' => Yii::t('writesdown', 'Active'),
+            //     'not-active' => Yii::t('writesdown', 'Not Active'),
+            //     'removed' => Yii::t('writesdown', 'Removed'),
+            //     'deleted' => Yii::t('writesdown', 'Delete Permanently'),
+            // ], [
+            //     'class' => 'bulk-action form-control',
+            //     'prompt' => Yii::t('writesdown', 'Change Status'),
+            // ])
+             ?>
 
             <?php
-            $role = ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name');
-            unset($role['superadmin']);
+            // echo Html::button(Yii::t('writesdown', 'Apply'), ['class' => 'btn btn-flat btn-warning bulk-button']) ?>
 
-            if (Yii::$app->user->can('administrator') && !Yii::$app->authManager->checkAccess(Yii::$app->user->id,
-                    'superadmin')
-            ) {
-                unset($role['administrator']);
-            }
+            <?php
+            // $role = ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name');
+            // unset($role['superadmin']);
 
-            echo Html::dropDownList('bulk-role', null, $role, [
-                'class' => 'bulk-role form-control',
-                'prompt' => Yii::t('writesdown', 'Change Role'),
-            ]);
+            // if (Yii::$app->user->can('administrator') && !Yii::$app->authManager->checkAccess(Yii::$app->user->id,
+            //         'superadmin')
+            // ) {
+            //     unset($role['administrator']);
+            // }
+
+            // echo Html::dropDownList('bulk-role', null, $role, [
+            //     'class' => 'bulk-role form-control',
+            //     'prompt' => Yii::t('writesdown', 'Change Role'),
+            // ]);
             ?>
 
-            <?= Html::button(Yii::t('writesdown', 'Apply'), ['class' => 'btn btn-flat btn-warning role-button']) ?>
+            <?php
+            // echo Html::button(Yii::t('writesdown', 'Apply'), ['class' => 'btn btn-flat btn-warning role-button']) ?>
 
             <?= Html::a(Yii::t('writesdown', 'Add New User'), ['create'],
                 ['class' => 'btn btn-flat btn-primary']) ?>
@@ -70,36 +74,40 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'id' => 'user-grid-view',
         'columns' => [
+            // [
+            //     'class' => 'yii\grid\CheckboxColumn',
+            //     'checkboxOptions' => function ($model) {
+            //         /* @var $model \common\models\User */
+            //         if ($model->checkPermission()) {
+            //             return ['value' => $model->id];
+            //         }
+
+            //         return ['disabled' => 'disabled'];
+            //     },
+            // ],
+            'full_name',
             [
-                'class' => 'yii\grid\CheckboxColumn',
-                'checkboxOptions' => function ($model) {
-                    /* @var $model \common\models\User */
-                    if ($model->checkPermission()) {
-                        return ['value' => $model->id];
-                    }
-
-                    return ['disabled' => 'disabled'];
-                },
+                'attribute' => 'mobile',
+                'label' => 'Contact (Viber)',
             ],
-
-            'username',
             'email:email',
-            [
-                'attribute' => 'role',
-                'value' => function ($model) {
-                    return implode(
-                        ', ',
-                        ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser($model->id), 'name')
-                    );
-                },
-            ],
-            [
-                'attribute' => 'status',
-                'value' => function ($model) {
-                    return $model->statustext;
-                },
-                'filter' => $searchModel->getStatuses(),
-            ],
+            'created_at:datetime',
+            // [
+            //     'attribute' => 'role',
+            //     'value' => function ($model) {
+            //         return implode(
+            //             ', ',
+            //             ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser($model->id), 'name')
+            //         );
+            //     },
+            // ],
+            // [
+            //     'attribute' => 'status',
+            //     'value' => function ($model) {
+            //         return $model->statustext;
+            //     },
+            //     'filter' => $searchModel->getStatuses(),
+            // ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [

@@ -117,12 +117,12 @@ use yii\helpers\Html;
         //     'visible' => Yii::$app->user->can('administrator'),
         // ];
         $adminMenu[60] = [
-            'label' => Yii::t('writesdown', 'Users'),
+            'label' => Yii::t('writesdown', 'Recommenders'),
             'icon' => 'fa fa-user',
             'items' => [
                 [
                     'icon' => 'fa fa-arrow-circle-right',
-                    'label' => Yii::t('writesdown', 'All Users'),
+                    'label' => Yii::t('writesdown', 'Recommenders / Users'),
                     'url' => ['/user/index'],
                     'visible' => Yii::$app->user->can('administrator'),
                 ],

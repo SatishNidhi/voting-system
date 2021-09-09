@@ -20,43 +20,54 @@ use yii\helpers\Url;
 $this->title = Yii::t('writesdown', 'Dashboard');
 
 ?>
+<style>
+    a {
+    color: #ffffff;
+}
+</style>
 <div class="site-index">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-aqua">
-                <span class="info-box-icon info-box-icon"><i class="fa fa-user-secret"></i></span>
+            <a href="<?=Url::base();?>/delicate"> <span class="info-box-icon info-box-icon"><i class="fa fa-user-secret"></i></span>
                 <div class="info-box-content">
-                    <h4>President</h4>
-                    <p style="font-size: 20px; font-weight: bold;">0</p>
+                    <h4>Delicates</h4>
+                    <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
                 </div>
+            </a>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-red">
-                <span class="info-box-icon"><i class="fa fa-user-secret"></i></span>
+            <a href="<?=Url::base();?>/candidate"><span class="info-box-icon"><i class="fa fa-user-secret"></i></span>
                 <div class="info-box-content">
-                    <h4>Vice President</h4>
-                    <p style="font-size: 20px; font-weight: bold;">0</p>
+                    <h4>Candidates</h4>
+                    <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
                 </div>
+            </a>
             </div>
         </div>
         <div class="clearfix visible-sm-block"></div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-green">
+            <a href="<?=Url::base();?>/position">
                 <span class="info-box-icon"><i class="fa fa-user-secret"></i></span>
                 <div class="info-box-content">
-                    <h4>Test1</h4>
-                    <p style="font-size: 20px; font-weight: bold;">0</p>
+                    <h4>Position</h4>
+                    <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
                 </div>
+            </a>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-yellow">
+                <a href="<?=Url::base();?>/delicate/summary">
                 <span class="info-box-icon"><i class="fa fa-comments"></i></span>
                 <div class="info-box-content">
-                    <h4>Test2</h4>
-                    <p style="font-size: 20px; font-weight: bold;">0</p>
+                    <h4>Summary</h4>
+                    <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
                 </div>
+                </a>
             </div>
         </div>
     </div>

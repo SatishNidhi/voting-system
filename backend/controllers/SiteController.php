@@ -95,11 +95,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        
-
+        // $president = Position::find()->where(['title'=>'President'])->one;
+        // $vicepresident = Position::find()->where(['title'=>'Vice President'])->one;
+        // $president_votes = Vote::find()->where
    
 
         return $this->render('index', [
+            // 'president' => count($president),
+            // 'vicepresident' => count($vicepresident)
         
         ]);
     }

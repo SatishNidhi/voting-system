@@ -23,7 +23,7 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => Yii::$app->request->abso
 // Favicon
 $this->registerLinkTag([
     'rel' => 'icon',
-    'href' => 'http://Voting .work/mg-motors/frontend/web/img/mg-fav.ico',
+    'href' => 'http://Voting-system.com/frontend/web/img/mg-fav.ico',
     'type' => 'image/x-icon',
 ]);
 

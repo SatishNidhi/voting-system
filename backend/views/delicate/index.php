@@ -20,11 +20,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <p>
-        <?= Html::a('Create Delicate', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Delicate', ['create'], ['class' => 'btn btn-success']) ?>&nbsp;
+        <button id="myButtonControlID" class="btn btn-success">
+        <b><span class="glyphicon glyphicon-save-file"></span>&nbsp;&nbsp;Download Excel File</b>
+      </button>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-<div class="table-outter">
+<div class="table-outter" id="chart">
     <table class="table table-striped" id="myTable">
   <thead>
     <tr>
@@ -138,3 +141,27 @@ function sortTable() {
   }
 }
 </script>
+
+<!-- Used for excel report -->
+<?php
+$js = <<<JS
+  $("[id$=myButtonControlID]").click(function(e) {
+    chart = $('div[id$=chart]').clone();
+    chart.find('.modal').remove();
+    chart.find('.btn').remove();
+    chart.find('.unwantedEdit').remove();
+    $.each(chart.find('table'), function(index, table){
+      table.style.border = "0.1pt solid #000";
+      $.each($(table).find('th'), function(index, table){
+        table.style.border = "0.1pt solid #000";
+      });
+      $.each($(table).find('td'), function(index, table){
+        table.style.border = "0.1pt solid #000";
+      });
+    });
+      window.open('data:application/vnd.ms-excel,' + encodeURIComponent( chart.html()));
+      e.preventDefault();
+  });
+JS;
+$this->registerJs($js);
+?>

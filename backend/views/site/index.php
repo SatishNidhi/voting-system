@@ -32,7 +32,7 @@ $this->title = Yii::t('writesdown', 'Dashboard');
             <a href="<?=Url::base();?>/delicate"> <span class="info-box-icon info-box-icon"><i class="fa fa-user-secret"></i></span>
                 <div class="info-box-content">
                     <h4>Delicates</h4>
-                    <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
+                    <p style="font-size: 20px; font-weight: bold;"><?=$delicate?></p>
                 </div>
             </a>
             </div>
@@ -42,7 +42,7 @@ $this->title = Yii::t('writesdown', 'Dashboard');
             <a href="<?=Url::base();?>/candidate"><span class="info-box-icon"><i class="fa fa-user-secret"></i></span>
                 <div class="info-box-content">
                     <h4>Candidates</h4>
-                    <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
+                    <p style="font-size: 20px; font-weight: bold;"><?=$candidate?></p>
                 </div>
             </a>
             </div>
@@ -54,7 +54,7 @@ $this->title = Yii::t('writesdown', 'Dashboard');
                 <span class="info-box-icon"><i class="fa fa-user-secret"></i></span>
                 <div class="info-box-content">
                     <h4>Position</h4>
-                    <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
+                    <p style="font-size: 20px; font-weight: bold;"><?=$position?></p>
                 </div>
             </a>
             </div>
@@ -65,7 +65,7 @@ $this->title = Yii::t('writesdown', 'Dashboard');
                 <span class="info-box-icon"><i class="fa fa-user"></i></span>
                 <div class="info-box-content">
                     <h4>Recommenders</h4>
-                    <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
+                    <p style="font-size: 20px; font-weight: bold;"><?=$recommender?></p>
                 </div>
                 </a>
             </div>

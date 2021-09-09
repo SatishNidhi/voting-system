@@ -11,12 +11,15 @@ use Yii;
 
 use common\models\LoginForm;
 use common\models\Option;
+use common\models\User;
+use common\models\Position;
+use common\models\Candidate;
+use common\models\Delicate;
 use common\models\PasswordResetRequestForm;
 use common\models\Post;
 use common\models\PostComment;
 use common\models\ResetPasswordForm;
 use common\models\SignupForm;
-use common\models\User;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -95,12 +98,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        // $president = Position::find()->where(['title'=>'President'])->one;
-        // $vicepresident = Position::find()->where(['title'=>'Vice President'])->one;
-        // $president_votes = Vote::find()->where
-   
+        $recommender = User::find()->count();
+        $delicate = Delicate::find()->count();
+        $candidate = Candidate::find()->count();
+        $position = POsition::find()->count();
 
         return $this->render('index', [
+            'recommender' => $recommender,
+            'delicate' => $delicate,
+            'candidate' => $candidate,
+            'position' => $position,
+
             // 'president' => count($president),
             // 'vicepresident' => count($vicepresident)
         

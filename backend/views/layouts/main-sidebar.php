@@ -157,12 +157,12 @@ use yii\helpers\Html;
                     'visible' => Yii::$app->user->can('administrator'),
                 ],
               
-                [
-                    'icon' => 'fa fa-arrow-circle-right', 
-                    'label' => Yii::t('writesdown', 'Mail'), 
-                    'url' => ['/mail/update/1'],
-                    'visible' => Yii::$app->user->can('administrator'),
-                ],
+                // [
+                //     'icon' => 'fa fa-arrow-circle-right', 
+                //     'label' => Yii::t('writesdown', 'Mail'), 
+                //     'url' => ['/mail/update/1'],
+                //     'visible' => Yii::$app->user->can('administrator'),
+                // ],
             ],
         ];
         // $adminMenu = ArrayHelper::merge($adminMenu, Option::getMenus(70));

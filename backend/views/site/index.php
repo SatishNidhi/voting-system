@@ -61,10 +61,10 @@ $this->title = Yii::t('writesdown', 'Dashboard');
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-yellow">
-                <a href="<?=Url::base();?>/delicate/summary">
-                <span class="info-box-icon"><i class="fa fa-comments"></i></span>
+                <a href="<?=Url::base();?>/user">
+                <span class="info-box-icon"><i class="fa fa-user"></i></span>
                 <div class="info-box-content">
-                    <h4>Summary</h4>
+                    <h4>Recommenders</h4>
                     <!-- <p style="font-size: 20px; font-weight: bold;">0</p> -->
                 </div>
                 </a>

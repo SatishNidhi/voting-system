@@ -24,10 +24,11 @@ class AppAsset extends AssetBundle
         $this->css = [
                     'public/vendor/bootstrap/css/bootstrap.min.css',
                     'public/css/style.css',
-                    "public/css/fontawesome-all.min.css",
+                    //"public/css/fontawesome-all.min.css",
                     'public/css/animate.min.css',
                     'public/css/feather.css',
                     'public/css/datta-icon.css',
+                    'https://pro.fontawesome.com/releases/v5.10.0/css/all.css',
 
 
 

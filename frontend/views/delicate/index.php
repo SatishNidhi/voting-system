@@ -19,8 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="delicate-index">
 
 
-    <p>
-        <?= Html::a('Create Delicate', ['create'], ['class' => 'btn btn-success']) ?>
+     <p>
+        <?= Html::a('Create Delicate', ['create'], ['class' => 'btn btn-success']) ?>&nbsp;
+        
+              <?= Html::a('<span class="glyphicon glyphicon-save-file"></span> Download Excel File', ['csv'], ['class' => 'btn btn-success']) ?>&nbsp;
+
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -67,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <td> 
             <?php
             echo Html::img(
-                Url::base(true).'/../public/img/'. $modelDelicate->photo,['width' => '90px'])
+                Url::base(true).'/public/img/'. $modelDelicate->photo,['width' => '90px'])
             ?>
             </td>
         <td><?=$modelDelicate->recommender->full_name?></td>

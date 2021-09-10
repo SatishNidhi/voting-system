@@ -24,7 +24,9 @@
         "2amigos/yii2-file-upload-widget": "~1.0",
         "2amigos/yii2-ckeditor-widget": "^1.0@dev",
         "iutbay/yii2-kcfinder": "dev-master",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+                "2amigos/yii2-chartjs-widget" : "~2.0"
+
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="delicate-index">
 
+
 <?= ChartJs::widget([
     'type' => 'line',
     'options' => [
@@ -49,6 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]
 ]);
 ?>
-   
+
 
 </div>

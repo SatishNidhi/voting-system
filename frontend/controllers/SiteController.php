@@ -28,7 +28,10 @@ use common\models\FrontendLoginForm;
 use common\models\AppLoginForm;
 use common\models\AppUser;
 use common\models\KeyLoginForm;
-
+use yii\web\UploadedFile;
+use common\models\Delicate;
+use common\models\Position;
+use common\models\Vote;
 /**
  * Site controller.
  *
@@ -59,7 +62,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'error'],
+                        'actions' => ['logout', 'index', 'error','update','reset-setting'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -95,11 +98,13 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $user = User::findOne(Yii::$app->user->id);
-     
+             $modelDelicates = Delicate::find()->where(['recommender_id'=>Yii::$app->user->id])->all();
+
    
 
         return $this->render('index', [
             'user'=>$user,
+            'modelDelicates'=>$modelDelicates,
         
         ]);
     }
@@ -174,6 +179,63 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+      public function actionUpdate()
+    {
+        
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/site/login']);
+        }else{
+       // $this->layout = 'user';
+        $model = User::findOne(Yii::$app->user->id);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $output = User::findOne($id);
+            $upload = UploadedFile::getInstance($model,'image');
+            if(!empty($upload))
+            {
+                $model->image = rand().$upload;
+                if($output->image){
+                    @unlink(Yii::getAlias('@root').'/public/img/'.$output->image);
+                }
+                $upload->saveAs(Yii::getAlias('@root').'/public/img/' .$model->image);
+            }
+          //  $model->access_level = 0;
+        //  $model->role = 'userfrontend';
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', 'Successfully Update.');
+                return $this->redirect(['update']);
+            }
+        }
+        return $this->render('_profile', [
+            'model' => $model,
+        ]);
+        }
+    }
+
+
+     public function actionResetSetting()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/site/login']);
+        }else{
+            $model = User::findOne(Yii::$app->user->id);
+            $model->setScenario('resetPassword');
+
+            if ($model->load(Yii::$app->request->post())) {
+                $model->setPassword($model->password);
+                if ($model->save()) {
+                    Yii::$app->getSession()->setFlash('success', 'Successfully Update.');
+                    return $this->redirect(['update']);
+                }
+            }
+
+            return $this->render('reset-setting-password', [
+                'model' => $model,
+            ]);
+        }
+    }
+
 
     /**
      * Generate and send token to user's email for resetting password.

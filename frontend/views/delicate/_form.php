@@ -7,6 +7,7 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use common\models\Ncc;
 use yii\helpers\Url;
+use kartik\date\DatePicker;
 $this->registerCssFile ( Url::to ( [ 
     '/css/widgets/responsiv-table.css' 
 ] ), [ 
@@ -51,6 +52,23 @@ $this->registerCssFile ( Url::to ( [
 
                             </div>
                           </div>
+                               <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email Address</label>
+                              <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label(false); ?>
+
+                            </div>
+                          </div>
+
+                           <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Phone Number</label>
+                                <?= $form->field($model, 'phone')->textInput(['maxlength' => true])->label(false); ?>
+
+
+                            </div>
+                          </div>
+
 
                            <div class="col-md-6">
                             <div class="form-group">
@@ -67,16 +85,30 @@ $this->registerCssFile ( Url::to ( [
 
                            <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email Address</label>
-                              <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label(false); ?>
+                                <label for="exampleInputEmail1">Membership_number</label>
+                              <?= $form->field($model, 'membership_number')->textInput(['maxlength' => true])->label(false); ?>
 
                             </div>
                           </div>
 
                            <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Phone Number</label>
-                                <?= $form->field($model, 'phone')->textInput(['maxlength' => true])->label(false); ?>
+                                <label for="exampleInputEmail1">Position</label>
+                                <?= $form->field($model, 'delicate_position')->textInput(['maxlength' => true])->label(false); ?>
+
+
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Position</label>
+                                <?= $form->field($model, 'delicate_position_date')->widget(DatePicker::classname(), [
+                                    'options' => ['placeholder' => 'Enter Join date ...'],
+                                    'pluginOptions' => [
+                                        'autoclose'=>true
+                                    ]
+                                ])->label(false); ?>
 
 
                             </div>
@@ -95,51 +127,35 @@ $this->registerCssFile ( Url::to ( [
                             </div>
                           </div>
 
-                          <?php 
-                          $count = 0;
-                          foreach ($modelPositions as $modelPosition)
-                          {
-                          ?>
-
-                          <div class="col-md-6">
+                            <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Vote for <?=$modelPosition->title?></label>
-
-                                   <?php
-                          foreach($modelPosition->candidate as $modelCandidate)
-                              {
-                          ?>
-
-                          <div class="form-group form-check">
-                                                            <input type="checkbox" class="form-check-input" id="candidate<?=$modelCandidate->candidate_id?>" name="candidate[<?=$count?>]" value="<?=$modelCandidate->candidate_id?>">&nbsp;
-                                                            <label class="form-check-label" for="candidate<?=$modelCandidate->candidate_id?>"><?=$modelCandidate->name?></label>
-                                                        </div>
-
-                              
-                          <?php
-                          $count = $count + 1;
-                              }
-                            ?>
-
-
-                            </div>
-                          </div>
-                            <?php
-
-                            }
-                            ?>
-
-                             <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Remarks</label>
-
-                                     <?= $form->field($model, 'remarks')->textarea(['rows' => 6])->label(false) ?>
-
+                                <label for="exampleInputEmail1">Fb Link</label>
+                                <?= $form->field($model, 'fb_link')->textInput(['maxlength' => true])->label(false); ?>
 
 
                             </div>
                           </div>
 
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Linkedln Link</label>
+                                <?= $form->field($model, 'linkedln_link')->textInput(['maxlength' => true])->label(false); ?>
+
+
+                            </div>
+                          </div>
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Twitter Link</label>
+                                <?= $form->field($model, 'twitter_link')->textInput(['maxlength' => true])->label(false); ?>
+
+
+                            </div>
+                          </div>
+                        </div>
+
+                        
 
 
 

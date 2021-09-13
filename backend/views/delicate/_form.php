@@ -6,6 +6,7 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use common\models\Ncc;
 use yii\helpers\Url;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Delicate */
@@ -15,6 +16,8 @@ use yii\helpers\Url;
 <div class="delicate-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+      <div class="col-md-6">
 
         <?= $form->field($model, 'photo')->fileInput() ?>
                             <?php if (!$model->isNewRecord) {?>
@@ -24,11 +27,15 @@ use yii\helpers\Url;
                          </div>
                        
                        <?php }?>
-
-
-
+        </div>
+              <div class="col-md-6">
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+  </div>
+
+    <div class="col-md-6">
+
+
 
     <?php echo $form->field($model, 'ncc_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map (Ncc::find ()->all(), 'ncc_id', 'title' ),
@@ -36,44 +43,58 @@ use yii\helpers\Url;
                     'options' => ['placeholder' => '-Select NCC-'],                    
                   ]);
                 ?>
+              </div>
+                    <div class="col-md-6">
+
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+  </div>
+   <div class="col-md-6">
+
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+  </div>
+
+        <div class="col-md-6">
+
+    <?= $form->field($model, 'membership_number')->textInput(['maxlength' => true]) ?>
+  </div>
+        <div class="col-md-6">
+
+    <?= $form->field($model, 'delicate_position')->textInput(['maxlength' => true]) ?>
+  </div>
+        <div class="col-md-6">
+
+    <?= $form->field($model, 'delicate_position_date')->widget(DatePicker::classname(), [
+    'options' => ['placeholder' => 'Enter Join date ...'],
+    'pluginOptions' => [
+        'autoclose'=>true
+    ]
+]); ?>
+  </div>
+      
+       
+        <div class="col-md-6">
 
 
-     <?php
+                      <?php
                             echo $form->field($model, 'political_background')->dropDownList(
                                     ['Congress' => 'Congress', 'UML' => 'UML']
                             ); ?>
+          </div>
+          <div class="col-md-6">
 
-<?php 
-    $count = 0;
-    foreach ($modelPositions as $modelPosition)
-    {
-      ?>
+    <?= $form->field($model, 'fb_link')->textInput(['maxlength' => true]) ?>
+  </div>
+  <div class="col-md-6">
 
-      <div class="form-group field-delicate-name required">
-        <label class="control-label" >Vote for <?=$modelPosition->title?></label> <br>
+    <?= $form->field($model, 'linkedln_link')->textInput(['maxlength' => true]) ?>
+  </div>
+  <div class="col-md-6">
 
-        <?php
-        foreach($modelPosition->candidate as $modelCandidate)
-            {
-        ?>
-            <input type="checkbox"  id="candidate<?=$modelCandidate->candidate_id?>" name="candidate[<?=$count?>]" value="<?=$modelCandidate->candidate_id?>">
-            <label for="candidate<?=$modelCandidate->candidate_id?>"> <?=$modelCandidate->name?></label><br>
-        <?php
-        $count = $count + 1;
-            }
-          ?>
-      <div class="help-block"></div>
-      </div>
-    <?php
-      
-      }
-    ?>
+    <?= $form->field($model, 'twitter_link')->textInput(['maxlength' => true]) ?>
+  </div>
+        </div>
 
-
-    <?= $form->field($model, 'remarks')->textarea(['rows' => 6]) ?>
 
 
 

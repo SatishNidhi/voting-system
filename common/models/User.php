@@ -80,12 +80,14 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE, self::STATUS_REMOVED]],
             ['auth_key', 'string', 'max' => 32],
-            [['created_at', 'updated_at', 'login_at', 'role','user_type'], 'safe'],
+            [['created_at', 'updated_at', 'login_at', 'role','user_type','image'], 'safe'],
             [['password', 'password_old', 'password_repeat'], 'required', 'on' => 'resetPassword'],
             ['password', 'required', 'on' => 'register'],
             ['password', 'string', 'min' => 6],
             ['password_old', 'passwordValidation'],
             ['password_repeat', 'compare', 'compareAttribute' => 'password'],
+            [['password','password_old', 'password_repeat'], 'required', 'on' => 'resetPassword'],
+
         ];
     }
 

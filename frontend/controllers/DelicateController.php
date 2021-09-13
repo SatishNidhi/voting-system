@@ -12,6 +12,8 @@ use yii\web\UploadedFile;
 use common\models\Position;
 use common\models\Vote;
 use yii\web\ForbiddenHttpException;
+use common\models\VoteSearch;
+use common\models\PositionSearch;
 /**
  * DelicateController implements the CRUD actions for Delicate model.
  */
@@ -57,13 +59,60 @@ class DelicateController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+      public function actionDelicate($ncc_id)
+    {
+        $searchModel = new DelicateSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams); 
+        $dataProvider->query->andFilterWhere(['ncc_id'=>$ncc_id]);
+        $modelPositions = Position::find()->all();
+
+           
+        return $this->render('delicates', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'ncc_id'=>$ncc_id,
+            'modelPositions'=>$modelPositions,
+         
+        ]);
+    }
+
+
+
+
+   
+
+    public function actionVote($id)
+    {
+        $searchModel = new VoteSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+         $dataProvider->query->andFilterWhere(['delicate_id'=>$id]);
+
+        return $this->render('vote', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+             'model' => $this->findModel($id),
+
+        ]);
+    }
+
+    public function actionSummary()
+    {
+        // $modelDelicates = Delicate::find()->all();
+        // $modelPositions = Position::find()->all();
+
+        return $this->render('vote', [
+            // 'modelDelicates' => $modelDelicates,
+            // 'modelPositions' => $modelPositions,
+        ]);
+    }
+    /**
+     * Displays a single Delicate model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id)
     {
-        $recommender = Delicate::findOne($id)->recommender_id;
-        if ($recommender != Yii::$app->user->id) {
-            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.')); 
-
-        }
         $modelVotes = Vote::find()->where(['delicate_id'=>$id])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -71,33 +120,20 @@ class DelicateController extends Controller
         ]);
     }
 
-
-
-        public function actionVote()
-    {
-        $modelDelicates = Delicate::find()->all();
-        $modelPositions = Position::find()->all();
-
-        return $this->render('vote', [
-            'modelDelicates' => $modelDelicates,
-            'modelPositions' => $modelPositions,
-        ]);
-    }
-
-    
-
     /**
      * Creates a new Delicate model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-      public function actionCreate()
+    public function actionCreate()
     {
         $model = new Delicate();
         $modelVote = new Vote();
 
         // $modelVode = new Vote();
-        $modelPositions = Position::find()->all();
+        $modelPositions = Position::find()
+                            // ->joinWith('candidate')
+                            ->all();
 
         if ($model->load(Yii::$app->request->post())) {
             
@@ -114,16 +150,16 @@ class DelicateController extends Controller
             $model->recommender_id = Yii::$app->user->id;
           
              if($model->save(false)) {
-                 if($_POST['candidate']){
-                    foreach($_POST['candidate'] as $candidate){
-                        //put transaction commit
-                        $modelVote = new Vote();
-                        $modelVote->delicate_id = $model->delicate_id;
-                        $modelVote->candidate_id = $candidate;
-                        $modelVote->save(false);
+                 // if($_POST['candidate']){
+                 //    foreach($_POST['candidate'] as $candidate){
+                 //        //put transaction commit
+                 //        $modelVote = new Vote();
+                 //        $modelVote->delicate_id = $model->delicate_id;
+                 //        $modelVote->candidate_id = $candidate;
+                 //        $modelVote->save(false);
 
-                    }
-                 }
+                 //    }
+                 // }
                 Yii::$app->session->setFlash('success', "The data was created successfully.");
             return $this->redirect(['index']);
             }
@@ -135,7 +171,6 @@ class DelicateController extends Controller
             //'modelVote' = $modelVote
         ]);
     }
-
 
     /**
      * Updates an existing Delicate model.
@@ -175,6 +210,41 @@ class DelicateController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+        ]);
+    }
+
+       public function actionUpdateVote($id)
+    {
+        $model = $this->findModel($id);
+           $modelPositions = Position::find()
+                            // ->joinWith('candidate')
+                            ->all();
+       $image = $model->photo;
+
+        if ($model->load(Yii::$app->request->post())) {
+ 
+
+            $model->recommender_id = Yii::$app->user->id;
+            if($model->save(false)) {
+                 if($_POST['candidate']){
+                    foreach($_POST['candidate'] as $candidate){
+                        //put transaction commit
+                        $modelVote = new Vote();
+                        $modelVote->delicate_id = $id;
+                        $modelVote->candidate_id = $candidate;
+                        $modelVote->save(false);
+
+                    }
+                 }
+                Yii::$app->session->setFlash('success', "The data was created successfully.");
+            return $this->redirect(['vote?id='.$id]);
+            }
+        }
+
+        return $this->render('vote_form', [
+            'model' => $model,
+            'modelPositions' => $modelPositions
+
         ]);
     }
 
@@ -245,7 +315,6 @@ class DelicateController extends Controller
 
         return $this->redirect(['index']);
     }
-
     /**
      * Finds the Delicate model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

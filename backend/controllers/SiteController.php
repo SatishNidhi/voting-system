@@ -57,7 +57,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'error'],
+                        'actions' => ['logout', 'index', 'error',],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -231,6 +231,9 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+
+
 
     /**
      * Show reset password. It requires param $token that generated on actionRequestPasswordReset which is sent to

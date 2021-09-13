@@ -93,3 +93,6 @@ $this->beginPage();
 </body>
 </html>
 <?php $this->endPage() ?>
+<style>.help-block{
+  color: red;
+}</style>

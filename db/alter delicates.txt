@@ -1,0 +1,3 @@
+ALTER TABLE `wd_delicate` ADD `membership_number` VARCHAR(255) NULL DEFAULT NULL AFTER `recommender_id`, ADD `delicate position` VARCHAR(255) NULL DEFAULT NULL AFTER `membership_number`, ADD `delicate_position_date` VARCHAR(255) NULL DEFAULT NULL AFTER `delicate position`, ADD `fb_link` VARCHAR(255) NULL DEFAULT NULL AFTER `delicate_position_date`;
+ALTER TABLE `wd_delicate` ADD `linkedln_link` VARCHAR(255) NULL DEFAULT NULL AFTER `fb_link`, ADD `twitter_link` VARCHAR(255) NULL DEFAULT NULL AFTER `linkedln_link`;
+ALTER TABLE `wd_delicate` CHANGE `delicate position` `delicate_position` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;

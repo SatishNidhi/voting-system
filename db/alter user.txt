@@ -5,3 +5,4 @@ ALTER TABLE `wd_delicate` CHANGE `political_background` `political_background` V
 ALTER TABLE `wd_delicate` DROP FOREIGN KEY `wd_delicate_ibfk_2`; ALTER TABLE `wd_delicate` ADD CONSTRAINT `wd_delicate_ibfk_2` FOREIGN KEY (`recommender_id`) REFERENCES `wd_user`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE voting-system.wd_vote DROP FOREIGN KEY wd_vote_ibfk_1`;`
 ALTER TABLE voting-system.wd_vote DROP FOREIGN KEY wd_vote_ibfk_2`;`
+ALTER TABLE `wd_user` ADD `image` VARCHAR(255) NULL DEFAULT NULL AFTER `mobile`;

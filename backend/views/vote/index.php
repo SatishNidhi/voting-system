@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel common\models\VoteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Votes';
+$this->title = 'Favourite Candidate';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="vote-index">

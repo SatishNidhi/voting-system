@@ -38,10 +38,10 @@ class Delicate extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'ncc_id', 'email', 'phone', 'recommender_id'], 'required'],
+            [['name', 'ncc_id', 'email', 'phone', 'membership_number'], 'required'],
             [['ncc_id', 'recommender_id'], 'integer'],
             [['remarks'], 'string'],
-            [['created_at'], 'safe'],
+            [['created_at','membership_number','delicate_position_date','delicate_position','delicate_position_date','linkedln_link','fb_link','twitter_link'], 'safe'],
             [['name', 'email', 'phone'], 'string', 'max' => 100],
             [['photo'], 'string', 'max' => 150],
             [['political_background'], 'string', 'max' => 50],
@@ -66,6 +66,8 @@ class Delicate extends \yii\db\ActiveRecord
             'remarks' => 'Remarks',
             'created_at' => 'Created At',
             'recommender_id' => 'Recommender',
+            'delicate_position'=>'Position',
+            'delicate_position_date' => 'Date',
         ];
     }
 

@@ -52,8 +52,8 @@ return [
             'rules' => [
                 'dashboard' => 'site/index',
                 '<controller>' => '<controller>/index',
-                '<controller>/<id:\d+>' => '<controller>/view',
-                '<controller>/update/<id:\d+>' => '<controller>/update',
+                //'<controller>/<id:\d+>' => '<controller>/view',
+                //'<controller>/update/<id:\d+>' => '<controller>/update',
             ],
         ],
         'urlManagerFront' => [

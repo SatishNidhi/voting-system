@@ -53,13 +53,21 @@ $user = User::findOne(Yii::$app->user->id);
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-notification">
                             <div class="pro-head">
-                                <img src="<?=Url::base(true).'/public/images'?>/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+                                <?php
+                                if ($user->image) {?>
+                                     <img src="<?=Url::base(true).'/public/img/'.$user->image?>" class="img-radius" alt="User-Profile-Image">
+                              <?php  }else{ ?>
+                                    <img src="<?=Url::base(true).'/public/images'?>/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+
+
+                              <?php  } ?>
+                              
                                 <span><?=$user->full_name;?></span>
                                 
                             </div>
                             <ul class="pro-body">
-                                <li><a href="javascript:" class="dropdown-item"><i class="fa fa-user"></i> My Profile</a></li>
-                                <li><a href="javascript:" class="dropdown-item"><i class="fa fa-sign-out"></i> Logout</a></li>
+                                <li><a href="<?=Url::base(true).'/site/update'?>" class="dropdown-item"><i class="fa fa-user"></i> My Profile</a></li>
+                                <li><a href="<?=Url::base(true).'/site/logout'?>" class="dropdown-item"><i class="fa fa-sign-out"></i> Logout</a></li>
                                 
                             </ul>
                         </div>

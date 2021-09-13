@@ -2,76 +2,54 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
-use common\models\Ncc;
-use yii\helpers\Url;
+use common\models\Delicate;
+use common\models\Candidate;
+use common\models\Position;
 
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\DelicateSearch */
+/* @var $searchModel common\models\VoteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Delicates';
+$this->title = 'Favourite Candidate of : '.$model->name;
 $this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="delicate-index">
 
+?>
+<div class="vote-index">
 
     <p>
-        <?= Html::a('Create Delicate', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add Favourite Candidate', ['update-vote?id='.$_GET['id']], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">S.N</th>
-      <th scope="col">Delicate Name</th>
-      <th scope="col">NCC</th>
-      <th scope="col">Recommender</th>
-      <?php 
-      foreach($modelPositions as $modelPosition)
-      {
-          ?>
-        <th scope="col">Vote for <?=$modelPosition->title?></th>
-    <?php
-      }
-      ?>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-    $sn=1;
-    foreach($modelDelicates as $modelDelicate)
-    {
-        ?>
-        <tr>
-        <th scope="row"><?=$sn;?></th>
-        <td><?=$modelDelicate->name?></td>
-        <td><?=$modelDelicate->ncc->title?></td>
-        <td><?=$modelDelicate->recommender->full_name?></td>
-        <?php 
-      foreach($modelPositions as $modelPosition)
-      {
-          ?>
-        <td>
-            <?php
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+              ['class' => 'yii\grid\SerialColumn', 'header' => '<span style="color: #3C8DC2;">S.No</span>'],
+
+            //'vote_id',
             
-                foreach($modelDelicate->votes as $modelVote){
-                    if($modelVote->candidate->position_id == $modelPosition->position_id)
-                        echo $modelVote->candidate->name.',';
-                }
-                ?>
-        </td>
-        <?php
-            }
-        ?>
-        </tr>
-    <?php
-    $sn++;
-        }
-    ?>
-    
-  </tbody>
-</table>
-   
+             [
+                    'attribute' => 'candidate_id',
+                    'header'=>'Position',
+                    'filter'=>ArrayHelper::map(Position::find()->orderBy(['title'=>SORT_ASC])->all(), 'position_id', 'title'),
+                    'value' => function ($data) {
+                      $delicate = Candidate::findOne($data->candidate_id);
+                       return  $delicate->position->title;
+                    },
+            ],
+             [
+                    'attribute' => 'candidate_id',
+                    'header'=>'Candidate',
+                    'value' =>'candidate.name',
+                    'filter'=>ArrayHelper::map(Candidate::find()->orderBy(['name'=>SORT_ASC])->all(), 'candidate_id', 'name'),
+            ],
+
+             // ['class' => 'yii\grid\ActionColumn', 'header' => '<span style="color: #3C8DC2;">Action</span>'],
+        ],
+    ]); ?>
+
 
 </div>

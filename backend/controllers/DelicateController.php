@@ -11,6 +11,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use common\models\VoteSearch;
+use common\models\PositionSearch;
 
 /**
  * DelicateController implements the CRUD actions for Delicate model.
@@ -39,28 +41,54 @@ class DelicateController extends Controller
     public function actionIndex()
     {
         $searchModel = new DelicateSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $modelDelicates = Delicate::find()->all();
-        $modelPositions = Position::find()->all();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams); 
+       // $dataProvider->query->groupBy(['ncc_id']);
+           $dataProvider->sort = ['defaultOrder' => ['delicate_id' => 'DESC']]; 
 
+           
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'modelDelicates' => $modelDelicates,
-            'modelPositions' => $modelPositions,
+         
         ]);
     }
 
-    public function actionVote()
+     public function actionDelicate($ncc_id)
     {
-        $modelDelicates = Delicate::find()->all();
+        $searchModel = new DelicateSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams); 
+        $dataProvider->query->andFilterWhere(['ncc_id'=>$ncc_id]);
         $modelPositions = Position::find()->all();
 
-        return $this->render('vote', [
-            'modelDelicates' => $modelDelicates,
-            'modelPositions' => $modelPositions,
+           
+        return $this->render('delicates', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'ncc_id'=>$ncc_id,
+            'modelPositions'=>$modelPositions,
+         
         ]);
     }
+
+
+
+
+   
+
+    public function actionVote($id)
+    {
+        $searchModel = new VoteSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+         $dataProvider->query->andFilterWhere(['delicate_id'=>$id]);
+
+        return $this->render('vote', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+             'model' => $this->findModel($id),
+
+        ]);
+    }
+
     public function actionSummary()
     {
         // $modelDelicates = Delicate::find()->all();
@@ -116,16 +144,16 @@ class DelicateController extends Controller
             $model->recommender_id = Yii::$app->user->id;
           
              if($model->save(false)) {
-                 if($_POST['candidate']){
-                    foreach($_POST['candidate'] as $candidate){
-                        //put transaction commit
-                        $modelVote = new Vote();
-                        $modelVote->delicate_id = $model->delicate_id;
-                        $modelVote->candidate_id = $candidate;
-                        $modelVote->save(false);
+                 // if($_POST['candidate']){
+                 //    foreach($_POST['candidate'] as $candidate){
+                 //        //put transaction commit
+                 //        $modelVote = new Vote();
+                 //        $modelVote->delicate_id = $model->delicate_id;
+                 //        $modelVote->candidate_id = $candidate;
+                 //        $modelVote->save(false);
 
-                    }
-                 }
+                 //    }
+                 // }
                 Yii::$app->session->setFlash('success', "The data was created successfully.");
             return $this->redirect(['index']);
             }
@@ -176,6 +204,41 @@ class DelicateController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+        ]);
+    }
+
+       public function actionUpdateVote($id)
+    {
+        $model = $this->findModel($id);
+           $modelPositions = Position::find()
+                            // ->joinWith('candidate')
+                            ->all();
+       $image = $model->photo;
+
+        if ($model->load(Yii::$app->request->post())) {
+ 
+
+            $model->recommender_id = Yii::$app->user->id;
+            if($model->save(false)) {
+                 if($_POST['candidate']){
+                    foreach($_POST['candidate'] as $candidate){
+                        //put transaction commit
+                        $modelVote = new Vote();
+                        $modelVote->delicate_id = $id;
+                        $modelVote->candidate_id = $candidate;
+                        $modelVote->save(false);
+
+                    }
+                 }
+                Yii::$app->session->setFlash('success', "The data was created successfully.");
+            return $this->redirect(['vote?id='.$id]);
+            }
+        }
+
+        return $this->render('vote_form', [
+            'model' => $model,
+            'modelPositions' => $modelPositions
+
         ]);
     }
 

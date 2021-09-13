@@ -44,7 +44,9 @@ $siteTitle = Option::get('sitetitle');
                 
                      <li data-username="Sample Page" class="nav-item"><a href="<?=Url::base(true).'/delicate'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Delicates</span></a></li>
             
-                    <li data-username="Sample Page" class="nav-item"><a href="#" class="nav-link"><span class="pcoded-micon"><i class="fa fa-user-secret"></i></span><span class="pcoded-mtext">My Profile</span></a></li>
+                    <li data-username="Sample Page" class="nav-item"><a href="<?=Url::base(true).'/site/update'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-user-secret"></i></span><span class="pcoded-mtext">My Profile</span></a></li>
+                      <li data-username="Sample Page" class="nav-item"><a href="<?=Url::base(true).'/site/reset-setting'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-sign-out"></i></span><span class="pcoded-mtext">Reset Password</span></a></li>
+
                     <li data-username="Sample Page" class="nav-item"><a href="<?=Url::base(true).'/site/logout'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-sign-out"></i></span><span class="pcoded-mtext">Logout</span></a></li>
                 </ul>
             </div>

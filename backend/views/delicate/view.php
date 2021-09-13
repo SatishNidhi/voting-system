@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Delicate */
@@ -30,38 +31,40 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'delicate_id',
-            'name',
- [
-            'attribute' => 'ncc_id',
-            'value' =>  $model->ncc->title,
+              
+               [
+                    'attribute' => 'ncc_id',
+                      'format' => 'raw',
+                    'value' => function ($data) {
+                       return  '<a href="' . Url::base(true) . '/delicate/delicate?id=' . $data->ncc_id.'">'.$data->ncc->title.'</a>';
+                    },
+            ],
 
-            ],             
-             'email:email',
-            'phone',
-            [
-                            'attribute' => 'photo',
-                            'format' => 'html',    
-                            'value' => function ($data) {
-                                 return Html::img(
-                                    Url::base(true).'/../public/img/'. $data['photo'],['width' => '150px']
-                            );
-                            },
-                        ],
-            'political_background',
-            'remarks:ntext',
-            'created_at',
-            [
-            'attribute' => 'recommender_id',
-            'value' =>  $model->recommender->full_name,
 
-            ],  
+              'name',
+              'membership_number',
+              'delicate_position',
+              'delicate_position_date',
+              'email',
+              'phone',
+              'political_background',
+              //'recommender_id',
+               [
+                    'attribute' => 'recommender_id',
+                      'format'=>'raw',
+
+                             'value' => function ($data) {
+                       return  '<a href="' . Url::base(true) . '/user/view?id=' . $data->recommender->id.'">'.$data->recommender->full_name.'</a>';
+                    },
+
+            ],
+            'remarks',
         ],
     ]) ?>
 
 </div>
 
-<h3> Votes </h3>
+<h3> Favourite Candidates </h3>
 
 <table class="table table-striped table-bordered detail-view">
     <thead>

@@ -94,7 +94,7 @@ class DelicateController extends Controller
         // $modelDelicates = Delicate::find()->all();
         // $modelPositions = Position::find()->all();
 
-        return $this->render('vote', [
+        return $this->render('summary', [
             // 'modelDelicates' => $modelDelicates,
             // 'modelPositions' => $modelPositions,
         ]);

@@ -28,7 +28,7 @@ class DelicateController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST','GET'],
                 ],
             ],
         ];
@@ -313,7 +313,7 @@ class DelicateController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(Yii::$app->request->referrer);
     }
     /**
      * Finds the Delicate model based on its primary key value.

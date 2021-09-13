@@ -44,11 +44,14 @@ class DelicateController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams); 
        // $dataProvider->query->groupBy(['ncc_id']);
            $dataProvider->sort = ['defaultOrder' => ['delicate_id' => 'DESC']]; 
-
+ $modelDelicates = Delicate::find()->all();
+        $modelPositions = Position::find()->all();
            
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'modelDelicates'=>$modelDelicates,
+            'modelPositions'=>$modelPositions,
          
         ]);
     }

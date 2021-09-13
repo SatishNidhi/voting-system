@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
       <p>
         <?= Html::a('Create Delicate', ['create'], ['class' => 'btn btn-success']) ?>&nbsp;
         
-              <?= Html::a('<span class="glyphicon glyphicon-save-file"></span> Download Excel File', ['csv'], ['class' => 'btn btn-success']) ?>&nbsp;
+        <button onclick="ExportToExcel('xlsx')" class="btn btn-success"><span class="glyphicon glyphicon-save-file"></span> Download Excel File</button>&nbsp;
 
     </p>
 
@@ -129,3 +129,83 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
+<table id="tbl_exporttable_to_xls" border="1" style="display: none">
+<thead>
+    <tr>
+      <th scope="col">S.N</th>
+      <th scope="col">Delicate Name</th>
+      <th scope="col" onclick="sortTable()">Ncc</th>
+      <!-- <th scope="col">NCC</th> -->
+      <th scope="col">Political Background</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th scope="col"> Photo </yh>
+      <th scope="col">Recommender</th>
+      <?php 
+      foreach($modelPositions as $modelPosition)
+      {
+          ?>
+        <th scope="col"  onclick="sortTable()"><?=$modelPosition->title?></th>
+    <?php
+      }
+      ?>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    $sn=1;
+    foreach($modelDelicates as $modelDelicate)
+    {
+        ?>
+        <tr>
+        <th scope="row"><?=$sn;?></th>
+        <!-- <a class="no-pjax" href="/voting-system/admin-vote/candidate/voter?id=1&amp;candidate=Ram" title="View">3</a> -->
+        <td>
+        <a class="no-pjax" href="<?=Url::base();?>/delicate/<?=$modelDelicate->delicate_id?>" title="View"> <?=$modelDelicate->name?></a>
+           
+        </td>
+        <td><?=$modelDelicate->ncc->title?></td>
+        <td><?=$modelDelicate->political_background?></td>
+        <td><?=$modelDelicate->phone?></td>
+        <td><?=$modelDelicate->email?></td>
+        <td> 
+            <?php
+            echo Html::img(
+                Url::base(true).'/../public/img/'. $modelDelicate->photo,['width' => '90px'])
+            ?>
+            </td>
+        <td><?=$modelDelicate->recommender->full_name?></td>
+        <?php 
+      foreach($modelPositions as $modelPosition)
+      {
+          ?>
+        <td>
+            <?php
+            
+                foreach($modelDelicate->votes as $modelVote){
+                    if($modelVote->candidate->position_id == $modelPosition->position_id)
+                        echo $modelVote->candidate->name.',';
+                }
+                ?>
+        </td>
+        <?php
+            }
+        ?>
+        </tr>
+    <?php
+    $sn++;
+        }
+    ?>
+    
+  </tbody>
+</table>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script>
+  function ExportToExcel(type, fn, dl) {
+       var elt = document.getElementById('tbl_exporttable_to_xls');
+       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+       return dl ?
+         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+         XLSX.writeFile(wb, fn || ('candidate-info.' + (type || 'xlsx')));
+    }
+</script>

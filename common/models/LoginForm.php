@@ -21,7 +21,9 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
-
+     public $type;
+    public $google_id;
+    public $facebook_id;
     private $_user = false;
 
     /**
@@ -31,7 +33,7 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username', 'password'], 'required','on'=>'login'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -69,6 +71,37 @@ class LoginForm extends Model
         }
 
         return false;
+    }
+
+
+     public function logins()
+    {
+        if ($this->validate()) {
+
+            return Yii::$app->user->login($this->getUserkey(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Finds user by [[username]]
+     *
+     * @return User|null
+     */
+    public function getUserkey()
+    {
+
+        if ($this->_user === false) {
+            if($this->type=='facebook'){
+                $this->_user = User::findOne(['fb_id' => $this->facebook_id]);
+            }else{
+               
+                $this->_user = User::findOne(['google_id' => $this->google_id]);
+            } 
+        }
+        
+        return $this->_user;
     }
 
     /**

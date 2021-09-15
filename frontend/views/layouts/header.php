@@ -31,7 +31,7 @@ $user = User::findOne(Yii::$app->user->id);
             <a class="mobile-menu" id="mobile-collapse1" href="javascript:"><span></span></a>
             <a href="<?=Url::base(true)?>" class="b-brand">
                    <div class="b-bg">
-                       <i class="feather icon-trending-up"></i>
+                        <img src="<?= Url::base(true).'/public/img/ybc.jpg' ?>" width="100%" height="100%">
                    </div>
                    <span class="b-title"><?=$siteTitle?></span>
                </a>
@@ -48,7 +48,9 @@ $user = User::findOne(Yii::$app->user->id);
               
                 <li>
                     <div class="dropdown drp-user">
+
                         <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
+                          <?=$user->full_name?>
                          <i class="fas fa-users-cog"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-notification">

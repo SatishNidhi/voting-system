@@ -21,8 +21,8 @@ return [
         
                         // the global settings for the Facebook plugins widget
                         'facebook' => [
-                                'appId' => '775416375896967',
-                                'secret' => 'd84234684725488849ed891802027617',
+                                'appId' => '2029893630498217',
+                                'secret' => '2f8e2a063d072e5b381fdf439afd86b4',
                         ],
         
                         // the global settings for the Google+ Plugins widget
@@ -57,6 +57,28 @@ return [
             'email' => 'common\components\Mail',
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        
+
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'authUrl' => 'https://www.facebook.com/dialog/oauth?display=popup',
+                    'clientId' => '342259090298354',
+                    'clientSecret' => 'e5ab820c84a69f3fbf72c992a0a9a48e',
+                    'attributeNames' => ['name', 'email', 'first_name', 'last_name'],
+                ],
+
+                'google' => [
+                'class' => 'yii\authclient\clients\Google',
+                'clientId' => '697976006233-l1tg2qd4gg0u547pv7r91lp0jvqot4rj.apps.googleusercontent.com',
+                'clientSecret' => '9IF0tXQY0raSEqwQOYN-xnUE',
+            ],
+            
+            ],
         ],
         
         'urlManager' => [

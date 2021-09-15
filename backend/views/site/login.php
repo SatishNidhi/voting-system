@@ -10,7 +10,7 @@ use codezeen\yii2\adminlte\widgets\Alert;
 use common\models\Option;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
@@ -20,8 +20,8 @@ $this->title = Yii::t('writesdown', 'Sign In');
 <div class="login-box">
     <div class="login-logo">
         <h1>
-            <a href="<?= Yii::$app->urlManagerFront->createUrl(['/site/index']) ?>">
-                <img src="<?= Yii::getAlias('@web/img/logos.png') ?>" alt="WritesDown">
+            <a href="#">
+                <img src="<?= Url::base(true).'/../public/img/ybc.jpg' ?>">
             </a>
         </h1>
     </div>

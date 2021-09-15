@@ -6,3 +6,6 @@ ALTER TABLE `wd_delicate` DROP FOREIGN KEY `wd_delicate_ibfk_2`; ALTER TABLE `wd
 ALTER TABLE voting-system.wd_vote DROP FOREIGN KEY wd_vote_ibfk_1`;`
 ALTER TABLE voting-system.wd_vote DROP FOREIGN KEY wd_vote_ibfk_2`;`
 ALTER TABLE `wd_user` ADD `image` VARCHAR(255) NULL DEFAULT NULL AFTER `mobile`;
+
+
+ALTER TABLE `wd_user` ADD `google_id` VARCHAR(255) NULL DEFAULT NULL AFTER `image`, ADD `fb_id` VARCHAR(255) NULL DEFAULT NULL AFTER `google_id`;

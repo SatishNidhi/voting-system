@@ -26,7 +26,7 @@ $siteTitle = Option::get('sitetitle');
             <div class="navbar-brand header-logo">
                 <a href="<?=Url::base(true)?>" class="b-brand">
                     <div class="b-bg">
-                        <i class="feather icon-trending-up"></i>
+                        <img src="<?= Url::base(true).'/public/img/ybc.jpg' ?>" width="100%" height="100%">
                     </div>
                     <span class="b-title"><?=$siteTitle;?></span>
                 </a>

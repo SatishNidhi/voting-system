@@ -58,6 +58,8 @@ class SiteController extends Controller
                             'not-found',
                             'terms',
                             'signup',
+                            'google',
+                            'facebook',
                         ],
                         'allow' => true,
                     ],
@@ -86,6 +88,10 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+            ],
+             'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'oAuthSuccess'],
             ],
         ];
     }
@@ -124,6 +130,7 @@ class SiteController extends Controller
     }
       $this->layout='loginlayout';
       $model = new LoginForm();
+      $model->scenario = "login";
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
@@ -302,11 +309,13 @@ class SiteController extends Controller
         //google login
     public function actionGoogle()
     {
+          
+
         $user = User::find()->where(['email'=>$_REQUEST['email']])->one();
         if($user){
             $user->google_id = $_REQUEST['id'];
             $user->save(false);
-        }else{
+       }else{
             $user = new User();
             $user->email = $_REQUEST['email'];
             $user->username = $_REQUEST['email'];
@@ -315,16 +324,15 @@ class SiteController extends Controller
             $user->auth_key = 'hdfgfdgdf';
             $user->status = 10;
             $user->google_id = $_REQUEST['id'];
-            $user->access_level = 0;
             $user->user_type = 'subscriber';
             if($user->save(false)){
                 //Yii::$app->authManager->assign(Yii::$app->authManager->getRole($user->role), $user->id);
             }
         }
-        $model = new KeyLoginForm();
+        $model = new LoginForm();
         $model->google_id = $user->google_id;
         $model->type = $_REQUEST['type'];
-        $model->loginkey();
+       $model->logins();
     }
     //facebook login
     public function actionFacebook()

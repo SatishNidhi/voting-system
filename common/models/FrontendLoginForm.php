@@ -95,4 +95,12 @@ class FrontendLoginForm extends Model
 
         return $this->_user;
     }
+
+    public function logins($id)
+    {
+       $user = User::findOne($id);
+            return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+      
+    }
+    
 }

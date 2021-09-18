@@ -37,15 +37,15 @@ $siteTitle = Option::get('sitetitle');
                     <li class="nav-item pcoded-menu-caption">
                         <label>Navigation</label>
                     </li>
-                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item <?= Yii::$app->controller->id.'/'.Yii::$app->controller->action->id == 'site/index' ? 'active' : "" ?>">
                         <a href="<?=Url::base(true)?>" class="nav-link "><span class="pcoded-micon"><i class="fa fa-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
                 
                 
-                     <li data-username="Sample Page" class="nav-item"><a href="<?=Url::base(true).'/delicate'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Delicates</span></a></li>
+                     <li data-username="Sample Page" class="nav-item <?= Yii::$app->controller->id == 'delicate' ? 'active' : "" ?>"><a href="<?=Url::base(true).'/delicate'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Delicates</span></a></li>
             
-                    <li data-username="Sample Page" class="nav-item"><a href="<?=Url::base(true).'/site/update'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-user-secret"></i></span><span class="pcoded-mtext">My Profile</span></a></li>
-                      <li data-username="Sample Page" class="nav-item"><a href="<?=Url::base(true).'/site/reset-setting'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-sign-out"></i></span><span class="pcoded-mtext">Reset Password</span></a></li>
+                    <li data-username="Sample Page" class="nav-item <?= Yii::$app->controller->id.'/'.Yii::$app->controller->action->id == 'site/update' ? 'active' : "" ?>"><a href="<?=Url::base(true).'/site/update'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-user-secret"></i></span><span class="pcoded-mtext">My Profile</span></a></li>
+                      <li data-username="Sample Page" class="nav-item <?= Yii::$app->controller->id.'/'.Yii::$app->controller->action->id == 'site/reset-setting' ? 'active' : "" ?>"><a href="<?=Url::base(true).'/site/reset-setting'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-undo"></i></span><span class="pcoded-mtext">Reset Password</span></a></li>
 
                     <li data-username="Sample Page" class="nav-item"><a href="<?=Url::base(true).'/site/logout'?>" class="nav-link"><span class="pcoded-micon"><i class="fa fa-sign-out"></i></span><span class="pcoded-mtext">Logout</span></a></li>
                 </ul>

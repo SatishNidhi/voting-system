@@ -42,6 +42,12 @@ class DelicateController extends Controller
     {
         $searchModel = new DelicateSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                   $dataProvider->query->andFilterWhere(['recommender_id'=>Yii::$app->user->id]);
+
+        $dataProvider->sort = ['defaultOrder' => ['delicate_id' => 'DESC']]; 
+        $dataProvider->pagination = [
+            'pageSize' => 10,
+        ];
         $modelDelicates = Delicate::find()->where(['recommender_id'=>Yii::$app->user->id])->all();
         $modelPositions = Position::find()->all();
 
@@ -212,6 +218,44 @@ class DelicateController extends Controller
             'model' => $model,
         ]);
     }
+
+
+
+     public function actionComment($id)
+    {
+        $model = $this->findModel($id);
+       $image = $model->photo;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $img = UploadedFile::getInstance($model, 'photo');
+    
+            if($img != null) {
+                $filename = rand().'.'.$img->extension;
+                $img->saveAs(Yii::getAlias('@root').'/public/img/'. $filename);
+                $model->photo = $filename;
+
+                if($image != null) {
+                    // delete old file
+                    unlink(Yii::getAlias('@root').'/public/img/'.$image);
+                }
+
+            } else { 
+                $model->photo = $image;
+            }
+
+            $model->recommender_id = Yii::$app->user->id;
+            if($model->save(false)) {
+                Yii::$app->session->setFlash('success', "The data was updated successfully.");
+            return $this->redirect(['index']);
+            }
+        }
+
+        return $this->renderAjax('comment', [
+            'model' => $model,
+        ]);
+    }
+
+
 
        public function actionUpdateVote($id)
     {

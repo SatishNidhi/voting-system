@@ -105,7 +105,7 @@ $this->title = Html::encode(Option::get('sitetitle'));
                                 <div class="col-xl-12 col-md-12">
                                     <div class="card Recent-Users">
                                         <div class="card-header">
-                                            <h5>Recent Delicates</h5>
+                                            <h5>Recent Delicates (<?=count($modelDelicates);?>)</h5>
                                         </div>
                                         <div class="card-block px-0 py-3">
                                             <div class="table-responsive">
@@ -129,10 +129,10 @@ $this->title = Html::encode(Option::get('sitetitle'));
                                                                </td>
                                                             <td>
                                                                 <h6 class="mb-1"><a href="<?=Url::base(true).'/delicate/vote?id='.$value->delicate_id?>"><?=$value->name;?></a></h6>
-                                                                <p class="m-0"><?=date('Y-m-d',strtotime($value->created_at));?></p>
+                                                                <!-- <p class="m-0"><?=date('Y-m-d',strtotime($value->created_at));?></p> -->
                                                             </td>
                                                             <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i><?=date('Y-m-d');?></h6>
+                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i><?=date('Y-m-d',strtotime($value->created_at));?></h6>
                                                             </td>
                                                             <td><a href="<?=Url::base(true).'/delicate/delete?id='.$value->delicate_id?>" class="label theme-bg2 text-white f-12" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a><a href="<?=Url::base(true).'/delicate/update?id='.$value->delicate_id?>" class="label theme-bg text-white f-12">Update</a></td>
                                                         </tr>

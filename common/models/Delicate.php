@@ -63,7 +63,7 @@ class Delicate extends \yii\db\ActiveRecord
             'phone' => 'Phone',
             'photo' => 'Photo',
             'political_background' => 'Political Background',
-            'remarks' => 'Remarks',
+            'remarks' => 'Comments',
             'created_at' => 'Created At',
             'recommender_id' => 'Recommender',
             'delicate_position'=>'Position',

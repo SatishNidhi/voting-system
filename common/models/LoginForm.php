@@ -84,11 +84,11 @@ class LoginForm extends Model
         return false;
     }
     
-    /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
-     */
+    // /**
+    //  * Finds user by [[username]]
+    //  *
+    //  * @return User|null
+    //  */
     public function getUserkey()
     {
 

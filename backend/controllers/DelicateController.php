@@ -186,12 +186,12 @@ class DelicateController extends Controller
     
             if($img != null) {
                 $filename = rand().'.'.$img->extension;
-                $img->saveAs(Yii::getAlias('@root').'/public/img/product/'. $filename);
+                $img->saveAs(Yii::getAlias('@root').'/public/img/'. $filename);
                 $model->photo = $filename;
 
                 if($image != null) {
                     // delete old file
-                    unlink(Yii::getAlias('@root').'/public/img/product/'.$image);
+                    unlink(Yii::getAlias('@root').'/public/img/'.$image);
                 }
 
             } else { 
@@ -206,6 +206,41 @@ class DelicateController extends Controller
         }
 
         return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+
+     public function actionComment($id)
+    {
+        $model = $this->findModel($id);
+       $image = $model->photo;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $img = UploadedFile::getInstance($model, 'photo');
+    
+            if($img != null) {
+                $filename = rand().'.'.$img->extension;
+                $img->saveAs(Yii::getAlias('@root').'/public/img/'. $filename);
+                $model->photo = $filename;
+
+                if($image != null) {
+                    // delete old file
+                    unlink(Yii::getAlias('@root').'/public/img/'.$image);
+                }
+
+            } else { 
+                $model->photo = $image;
+            }
+
+            $model->recommender_id = Yii::$app->user->id;
+            if($model->save(false)) {
+                Yii::$app->session->setFlash('success', "The data was updated successfully.");
+            return $this->redirect(['index']);
+            }
+        }
+
+        return $this->renderAjax('comment', [
             'model' => $model,
         ]);
     }

@@ -3,12 +3,20 @@
 use codezeen\yii2\adminlte\widgets\Alert;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model common\models\ResetPasswordForm */
 
 $this->title = 'Reset password';
+$this->registerCssFile ( Url::to ( [ 
+    '/css/widgets/responsiv-table.css' 
+] ), [ 
+    'depends' => [ 
+        \frontend\assets\AppAsset::className () 
+    ] 
+] );
 ?>
 
 <style >
@@ -18,7 +26,7 @@ $this->title = 'Reset password';
 </style>
     
             <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-                <?php $form = ActiveForm::begin(['action' =>[''], 'options' => ['class' => 'login100-form validate-form']]); ?>
+                <?php $form = ActiveForm::begin(['options' => ['class' => 'login100-form validate-form']]); ?>
                     <span class="login100-form-title p-b-49">
                         Verify Email
                     </span>

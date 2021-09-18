@@ -15,7 +15,12 @@ $this->registerCssFile ( Url::to ( [
     ] 
 ] );
 ?>
-
+<style>
+  .form-check-input {
+  
+     margin-left: unset; 
+}
+</style>
 <div class="main-body">
 <div class="page-wrapper">
 <!-- [ Main Content ] start -->
@@ -40,7 +45,7 @@ $this->registerCssFile ( Url::to ( [
 
                           <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Vote for <?=$modelPosition->title?></label>
+                                <label for="exampleInputEmail1"><b>Vote for <?=$modelPosition->title?></b></label>
 
                                    <?php
                           foreach($modelPosition->candidate as $modelCandidate)
@@ -48,7 +53,7 @@ $this->registerCssFile ( Url::to ( [
                           ?>
 
                           <div class="form-group form-check">
-                                                            <input type="checkbox" class="form-check-input" id="candidate<?=$modelCandidate->candidate_id?>" name="candidate[<?=$count?>]" value="<?=$modelCandidate->candidate_id?>">&nbsp;
+                                                            <input type="checkbox" class="form-check-input" id="candidate<?=$modelCandidate->candidate_id?>" name="candidate[<?=$count?>]" value="<?=$modelCandidate->candidate_id?>">
                                                             <label class="form-check-label" for="candidate<?=$modelCandidate->candidate_id?>"><?=$modelCandidate->name?></label>
                                                         </div>
 

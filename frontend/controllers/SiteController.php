@@ -53,7 +53,7 @@ class SiteController extends Controller
                         'actions' => [
                             'login',
                             'request-password-reset',
-                            'reset-password',
+                            'reset-passwords',
                             'forbidden',
                             'not-found',
                             'terms',
@@ -257,16 +257,13 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
+            
+                Yii::$app->getSession()->setFlash('success', 'Please rest the password.');
+                $user = User::find()->where(['email'=>$model->email])->one();
+               
 
-                return $this->goHome();
-            } else {
-                Yii::$app->getSession()->setFlash(
-                    'error',
-                    'Sorry, we are unable to reset password for email provided.'
-                );
-            }
+                return $this->redirect(['reset-passwords?token='.$user->password_reset_token]);
+            
         }
 
         return $this->render('request-password-reset-token', [
@@ -282,10 +279,10 @@ class SiteController extends Controller
      * @return string|\yii\web\Response
      * @throws \yii\web\BadRequestHttpException
      */
-    public function actionResetPassword($token)
+    public function actionResetPasswords($token)
     {
         // Change layout and body class of reset password page
-                    $this->layout='loginlayout';
+     $this->layout='loginlayout';
 
 
         try {

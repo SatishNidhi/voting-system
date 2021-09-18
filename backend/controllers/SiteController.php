@@ -132,6 +132,8 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
+              $model->scenario = "login";
+
 
         if ($model->load(Yii::$app->request->post())) {
             $user = User::find()->where(['username'=>$model->username])->one();

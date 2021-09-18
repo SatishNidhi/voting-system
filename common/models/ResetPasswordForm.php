@@ -23,7 +23,7 @@ class ResetPasswordForm extends Model
      * @var string
      */
     public $password;
-
+    public $repassword;
     /**
      * @var \common\models\User
      */
@@ -58,8 +58,10 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            ['password', 'required'],
+            [['password','repassword'], 'required'],
             ['password', 'string', 'min' => 6],
+         ['repassword', 'compare', 'compareAttribute' => 'password'],
+
         ];
     }
 

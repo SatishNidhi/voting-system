@@ -55,14 +55,7 @@ $this->registerCssFile ( Url::to ( [
             ],
 
               
-               [
-                    'attribute' => 'ncc_id',
-                    'filter'=>ArrayHelper::map(Ncc::find()->orderBy(['title'=>SORT_ASC])->all(), 'ncc_id', 'title'),
-                      'format' => 'raw',
-                    'value' => function ($data) {
-                       return  $data->ncc->title;
-                    },
-            ],
+              
 
 
               
@@ -76,6 +69,14 @@ $this->registerCssFile ( Url::to ( [
               'membership_number',
               'delicate_position',
               'delicate_position_date',
+               [
+                    'attribute' => 'ncc_id',
+                    'filter'=>ArrayHelper::map(Ncc::find()->orderBy(['title'=>SORT_ASC])->all(), 'ncc_id', 'title'),
+                      'format' => 'raw',
+                    'value' => function ($data) {
+                       return  $data->ncc->title;
+                    },
+            ],
               'email',
               'phone',
              // 'political_background',
@@ -172,11 +173,12 @@ $this->registerCssFile ( Url::to ( [
 <thead>
     <tr>
       <th scope="col">S.N</th>
-      <th scope="col" onclick="sortTable()">Ncc</th>
       <th scope="col">Delicate Name</th>
       <th scope="col">Membership Number</th>
       <th scope="col">Position</th>
      <th scope="col">Date</th>
+           <th scope="col" onclick="sortTable()">Ncc</th>
+
       <!-- <th scope="col">NCC</th> -->
       <th scope="col">Political Background</th>
       <th scope="col">Phone</th>
@@ -205,7 +207,6 @@ $this->registerCssFile ( Url::to ( [
         <th scope="row"><?=$sn;?></th>
         <!-- <a class="no-pjax" href="/voting-system/admin-vote/candidate/voter?id=1&amp;candidate=Ram" title="View">3</a> -->
      
-        <td><?=$modelDelicate->ncc->title?></td>
            <td>
         <a class="no-pjax" href="<?=Url::base();?>/delicate/<?=$modelDelicate->delicate_id?>" title="View"> <?=$modelDelicate->name?></a>
            
@@ -213,10 +214,12 @@ $this->registerCssFile ( Url::to ( [
         <td><?=$modelDelicate->membership_number?></td>
         <td><?=$modelDelicate->delicate_position?></td>
        <td><?=date('Y-m-d',strtotime($modelDelicate->delicate_position_date));?></td>
+               <td><?=$modelDelicate->ncc->title?></td>
+
         <td><?=$modelDelicate->political_background?></td>
         <td><?=$modelDelicate->phone?></td>
         <td><?=$modelDelicate->email?></td>
-                <td><?=$modelDelicate->fb_link?></td>
+          <td><?=$modelDelicate->fb_link?></td>
 
         <td><?=$modelDelicate->recommender->full_name?></td>
         <td><?=$modelDelicate->remarks?></td>
